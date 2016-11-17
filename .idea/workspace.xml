@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c29e817-f7bf-4cbc-8067-3cc362eb5709" name="Default" comment="" />
+    <list default="true" id="7c29e817-f7bf-4cbc-8067-3cc362eb5709" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/Traffic_Signs_Recognition.ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/results/Traffic_Signs_Recognition_3by3.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/results/Traffic_Signs_Recognition_40_epochs.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/results/Traffic_Signs_Recognition_5by5.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/results/Traffic_Signs_Recognition_stillWorks.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/sdc/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/sdc/image_processing.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/sdc/layers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_keras.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_tf.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trafficSigns/signnames.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/selfDrivingCar.iml" afterPath="$PROJECT_DIR$/.idea/selfDrivingCar.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+    </list>
     <ignored path="selfDrivingCar.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,20 +39,62 @@
     <favorites_list name="selfDrivingCar" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="line_detector.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/findingLaneLines/sdc/line_detector.py">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="traffic_signs_tf.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_tf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="216" column="21" selection-start-line="216" selection-start-column="21" selection-end-line="216" selection-end-column="21" />
+            <state relative-caret-position="4995">
+              <caret line="333" column="45" selection-start-line="333" selection-start-column="45" selection-end-line="333" selection-end-column="45" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#38#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="layers.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/layers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="image_processing.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/image_processing.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7843">
+              <caret line="136" column="4" selection-start-line="136" selection-start-column="4" selection-end-line="136" selection-end-column="4" />
+              <folding>
+                <element signature="e#169#207#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="traffic_signs_keras.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_keras.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-58">
+              <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jupyter Notebook" />
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,6 +103,19 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/findingLaneLines/sdc/line_detector.py" />
+        <option value="$PROJECT_DIR$/tensorflow/tutorial.py" />
+        <option value="$PROJECT_DIR$/tensorflow/cifar10_1.py" />
+        <option value="$PROJECT_DIR$/tensorflow/mnist.py" />
+        <option value="$PROJECT_DIR$/trafficSigns/sdc/slim_playing.py" />
+        <option value="$PROJECT_DIR$/trafficSigns/sdc/slim_tutorial.py" />
+        <option value="$PROJECT_DIR$/tensorflow/minist.ipynb" />
+        <option value="$PROJECT_DIR$/trafficSigns/sdc/cifar.py" />
+        <option value="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs.py" />
+        <option value="$PROJECT_DIR$/trafficSigns/sdc/__init__.py" />
+        <option value="$PROJECT_DIR$/trafficSigns/sdc/image_processing.py" />
+        <option value="$PROJECT_DIR$/trafficSigns/sdc/layers.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_tf.py" />
       </list>
     </option>
   </component>
@@ -49,6 +124,25 @@
     <option name="y" value="30" />
     <option name="width" value="1351" />
     <option name="height" value="864" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PyCompatibilityInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -75,7 +169,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -104,7 +198,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="findingLaneLines" />
+              <option name="myItemId" value="trafficSigns" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -118,7 +212,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="findingLaneLines" />
+              <option name="myItemId" value="trafficSigns" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -126,29 +220,125 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="selfDrivingCar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="selfDrivingCar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trafficSigns" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Python.line_detector">
-    <configuration default="false" name="line_detector" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/trafficSigns/sdc" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.traffic_signs_tf">
+    <configuration default="false" name="traffic_signs" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DYLD_LIBRARY_PATH" value="/usr/local/cuda/lib" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/findingLaneLines/" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/trafficSigns/sdc" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="selfDrivingCar" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/findingLaneLines/sdc/line_detector.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_keras.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="slim_tutorial" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DYLD_LIBRARY_PATH" value="/usr/local/cuda/lib" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda/envs/sdc/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/trafficSigns/sdc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selfDrivingCar" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trafficSigns/sdc/slim_tutorial.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="slim_playing" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DYLD_LIBRARY_PATH" value="/usr/local/cuda/lib" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda/envs/sdc/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/trafficSigns/sdc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selfDrivingCar" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trafficSigns/sdc/slim_playing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="traffic_signs_tf" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DYLD_LIBRARY_PATH" value="/usr/local/cuda/lib" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/trafficSigns/sdc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selfDrivingCar" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_tf.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="cifar" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DYLD_LIBRARY_PATH" value="/usr/local/cuda/lib" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda/envs/sdc/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/trafficSigns/sdc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selfDrivingCar" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trafficSigns/sdc/cifar.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -158,8 +348,9 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DYLD_LIBRARY_PATH" value="/usr/local/cuda/lib" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda/envs/sdc/bin/python" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -287,12 +478,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Python.line_detector" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Python.traffic_signs" />
+      <item index="1" class="java.lang.String" itemvalue="Python.slim_tutorial" />
+      <item index="2" class="java.lang.String" itemvalue="Python.slim_playing" />
+      <item index="3" class="java.lang.String" itemvalue="Python.traffic_signs_tf" />
+      <item index="4" class="java.lang.String" itemvalue="Python.cifar" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.line_detector" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.traffic_signs_tf" />
+        <item index="1" class="java.lang.String" itemvalue="Python.traffic_signs" />
+        <item index="2" class="java.lang.String" itemvalue="Python.cifar" />
+        <item index="3" class="java.lang.String" itemvalue="Python.slim_tutorial" />
+        <item index="4" class="java.lang.String" itemvalue="Python.slim_playing" />
       </list>
     </recent_temporary>
   </component>
@@ -313,22 +512,23 @@
     <frame x="31" y="30" width="1351" height="864" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24944486" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24204293" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32955974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32955974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4918239" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -344,11 +544,150 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="12" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_5_4727.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_6_5602.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_7_511.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_8_9832.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_9_9109.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_10_7661.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_2_3407.jpeg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_2.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_3.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_4.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_5.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_6.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_7.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_8.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_9.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_1.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_0.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_4.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_5.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_6.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_7.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_8.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_9.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_3.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_2.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_1.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/7776_0.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/125545852_1.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/125545852_0.jpg" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/a_1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/orig.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/111_1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/findingLaneLines/sdc/line_detector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="203" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda/envs/sdc/lib/python3.5/site-packages/tensorflow/contrib/losses/python/losses/loss_ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="371" column="0" selection-start-line="371" selection-start-column="0" selection-end-line="371" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensorflow/minist.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="-1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensorflow/cifar10_1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-390">
+          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensorflow/mnist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="25" column="62" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/slim_tutorial.py" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/slim_playing.py" />
+    <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda/envs/sdc/lib/python3.5/site-packages/numpy/lib/function_base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="4585" column="0" selection-start-line="4585" selection-start-column="0" selection-end-line="4585" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/logs/train/events.out.tfevents.1478835236.MacBook-Pro.local">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/image_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7843">
+          <caret line="136" column="4" selection-start-line="136" selection-start-column="4" selection-end-line="136" selection-end-column="4" />
+          <folding>
+            <element signature="e#169#207#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_keras.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-58">
+          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/layers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keras/trafficSignClassification.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="-1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/notes.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -356,12 +695,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/findingLaneLines/sdc/line_detector.py">
+    <entry file="file://$PROJECT_DIR$/trafficSigns/convolutions.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="-1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="216" column="21" selection-start-line="216" selection-start-column="21" selection-end-line="216" selection-end-column="21" />
+        <state relative-caret-position="650">
+          <caret line="91" column="12" selection-start-line="91" selection-start-column="12" selection-end-line="91" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/cifar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-673">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_tf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4995">
+          <caret line="333" column="45" selection-start-line="333" selection-start-column="45" selection-end-line="333" selection-end-column="45" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
