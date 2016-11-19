@@ -45,20 +45,23 @@ class DataSet(object):
     def epochs_completed(self):
         return self._epochs_completed
 
-    def next_batch(self, batch_size):
+    def next_batch(self, batch_size, generate_image=False, shuffle_between_epochs=True):
         start = self._index_in_epoch
         self._index_in_epoch += batch_size
 
+        end = min(self._index_in_epoch, self._num_examples)
+        imgs = self._images[start:end]
+        lbls =  self._labels[start:end]
+        if generate_image:
+            imgs = generate_images(datagen, imgs)
+
         if self._index_in_epoch > self._num_examples:
             self._epochs_completed += 1
-            self.shuffle_data()
-            start = 0
-            self._index_in_epoch = batch_size
-            assert batch_size <= self._num_examples
+            self._index_in_epoch = 0
+            if shuffle_between_epochs:
+                self.shuffle_data()
 
-        end = self._index_in_epoch
-        new_images = generate_images(datagen, self._images[start:end])
-        return new_images, self._labels[start:end]
+        return imgs,lbls
 
     def shuffle_data(self):
         perm = np.arange(self._num_examples)

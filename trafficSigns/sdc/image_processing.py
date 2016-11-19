@@ -191,39 +191,6 @@ def list_pictures(directory, ext='jpg|jpeg|bmp|png'):
 
 
 class ImageDataGenerator(object):
-    '''Generate minibatches with
-    real-time data augmentation.
-
-    # Arguments
-        featurewise_center: set input mean to 0 over the dataset.
-        samplewise_center: set each sample mean to 0.
-        featurewise_std_normalization: divide inputs by std of the dataset.
-        samplewise_std_normalization: divide each input by its std.
-        zca_whitening: apply ZCA whitening.
-        rotation_range: degrees (0 to 180).
-        width_shift_range: fraction of total width.
-        height_shift_range: fraction of total height.
-        shear_range: shear intensity (shear angle in radians).
-        zoom_range: amount of zoom. if scalar z, zoom will be randomly picked
-            in the range [1-z, 1+z]. A sequence of two can be passed instead
-            to select this range.
-        channel_shift_range: shift range for each channels.
-        fill_mode: points outside the boundaries are filled according to the
-            given mode ('constant', 'nearest', 'reflect' or 'wrap'). Default
-            is 'nearest'.
-        cval: value used for points outside the boundaries when fill_mode is
-            'constant'. Default is 0.
-        horizontal_flip: whether to randomly flip images horizontally.
-        vertical_flip: whether to randomly flip images vertically.
-        rescale: rescaling factor. If None or 0, no rescaling is applied,
-            otherwise we multiply the data by the value provided (before applying
-            any other transformation).
-        dim_ordering: 'th' or 'tf'. In 'th' mode, the channels dimension
-            (the depth) is at index 1, in 'tf' mode it is at index 3.
-            It defaults to the `image_dim_ordering` value found in your
-            Keras config file at `~/.keras/keras.json`.
-            If you never set it, then it will be "th".
-    '''
     def __init__(self,
                  featurewise_center=False,
                  samplewise_center=False,
