@@ -96,9 +96,6 @@ class ImageDataGenerator(object):
                  fill_mode='nearest'):
 
         self.__dict__.update(locals())
-        self.mean = None
-        self.std = None
-        self.principal_components = None
 
         self.channel_index = 3
         self.row_index = 1

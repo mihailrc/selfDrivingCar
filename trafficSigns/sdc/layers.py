@@ -56,7 +56,7 @@ def activation_summary(tensor):
     tf.scalar_summary(tensor_name + '/sparsity', tf.nn.zero_fraction(tensor))
     
     
-def cifar_net(x, n_classes, conv_dropout, hidden_dropout):
+def convolutional_net(x, n_classes, conv_dropout, hidden_dropout):
     # Convolution Layer
     conv1 = conv2d('conv-1', x, 3, 32)
     activation_summary(conv1)

@@ -4,10 +4,11 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 import pickle
+import os
 
 from trafficSigns.sdc import layers
 from trafficSigns.sdc import data_batching
-import time
+from trafficSigns.sdc import model
 
 training_iters = 200000
 learning_rate = 0.001
@@ -51,71 +52,26 @@ y = tf.placeholder(tf.float32, [None, n_classes])
 conv_prob = tf.placeholder(tf.float32)
 hidden_prob = tf.placeholder(tf.float32)
 
-predictions = layers.cifar_net(x, n_classes, conv_prob, hidden_prob)
+predictions = layers.convolutional_net(x, n_classes, conv_prob, hidden_prob)
 
 # Define loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(predictions, y))
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 
 summary_op = tf.merge_all_summaries()
-
+correct_pred = tf.equal(tf.argmax(predictions, 1), tf.argmax(y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 test_dataset = data_batching.DataSet(X_test, y_test)
-
-
-def evaluate_model(dataset, logits, session):
-    start_time = time.time()
-    evals = np.ndarray(shape=(0, n_classes), dtype=np.float32)
-    # data gets shuffled so it is important to set it before it gets shuffled
-    labels = dataset.labels
-    while test_dataset.epochs_completed == 0:
-        batch_images, batch_labels = test_dataset.next_batch(32, shuffle_between_epochs=False)
-        preds = session.run(logits, feed_dict={x: batch_images, y: batch_labels, conv_prob: 1.0, hidden_prob: 1.0})
-        evals = np.append(evals, preds, axis=0)
-    correct_pred_2 = np.equal(np.argmax(evals, 1), np.argmax(labels, 1))
-    testing_accuracy = np.sum(correct_pred_2) / dataset.num_examples
-    print("Testing accuracy {:.4f}%".format(testing_accuracy * 100))
-    print("Calculated accuracy in {:.2f} seconds".format(time.time() - start_time))
-
-
-training_epochs = 1
-
-
-def train(session, training_dataset, optimizer, cost, summary_operation):
-    correct_pred = tf.equal(tf.argmax(predictions, 1), tf.argmax(y, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-
-    start_time = time.time()
-    summary_writer = tf.train.SummaryWriter("/tmp/traffic_signs", session.graph)
-    step = 1
-    while training_dataset.epochs_completed < training_epochs:
-
-        batch_x, batch_y = training_dataset.next_batch(batch_size, True)
-
-        session.run(optimizer, feed_dict={x: batch_x, y: batch_y, conv_prob: 0.75, hidden_prob: 0.5})
-        if step % display_step == 0:
-            # Calculate batch loss and accuracy
-            loss, acc = session.run([cost, accuracy], feed_dict={x: batch_x,
-                                                                 y: batch_y,
-                                                                 conv_prob: 1.0,
-                                                                 hidden_prob: 1.0})
-            summary_str = session.run(summary_operation, feed_dict={x: batch_x,
-                                                                    y: batch_y,
-                                                                    conv_prob: 1.0,
-                                                                    hidden_prob: 1.0})
-            summary_writer.add_summary(summary_str, step)
-            print("Iter " + str(step * batch_size) + ", Minibatch Loss= " + \
-                  "{:.6f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.5f}".format(acc))
-        step += 1
-    end_time = time.time()
-    print("Training for {:d} epochs took {:.2f} seconds".format(training_epochs, end_time - start_time))
-
+training_epochs = 2
 
 # Initializing the variables
 init = tf.initialize_all_variables()
 train_dataset = data_batching.DataSet(X_train, y_train)
 
+train_dict = {conv_prob: 0.75, hidden_prob: 0.5}
+test_dict = {conv_prob: 1.0, hidden_prob: 1.0}
+model = model.Model(x, y,n_classes,train_dict, test_dict, "/tmp/traffic_signs")
 with tf.Session() as sess:
     sess.run(init)
-    train(sess, train_dataset, optimizer, cost, summary_op)
-    evaluate_model(test_dataset, predictions, sess)
+    model.train(sess, train_dataset, optimizer, cost, accuracy, summary_op,training_epochs, checkpoint_step=1)
+    model.evaluate(test_dataset, predictions, sess)

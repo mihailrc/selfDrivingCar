@@ -22,6 +22,7 @@ class DataSet(object):
     def __init__(self, images, labels):
         assert images.shape[0] == labels.shape[0], (
             'images.shape: %s labels.shape: %s' % (images.shape, labels.shape))
+        self.is_first_batch = True
         self._num_examples = images.shape[0]
         self._images = images
         self._labels = labels
@@ -46,6 +47,7 @@ class DataSet(object):
         return self._epochs_completed
 
     def next_batch(self, batch_size, generate_image=False, shuffle_between_epochs=True):
+        self.is_first_batch = False
         start = self._index_in_epoch
         self._index_in_epoch += batch_size
 
@@ -56,6 +58,7 @@ class DataSet(object):
             imgs = generate_images(datagen, imgs)
 
         if self._index_in_epoch > self._num_examples:
+            self.is_first_batch = True
             self._epochs_completed += 1
             self._index_in_epoch = 0
             if shuffle_between_epochs:
