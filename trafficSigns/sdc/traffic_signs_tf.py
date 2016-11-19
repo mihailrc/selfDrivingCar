@@ -73,7 +73,6 @@ def evaluate_model(dataset, logits, session):
         evals = np.append(evals, preds, axis=0)
     correct_pred_2 = np.equal(np.argmax(evals, 1), np.argmax(labels, 1))
     testing_accuracy = np.sum(correct_pred_2) / dataset.num_examples
-    print(evals.shape)
     print("Testing accuracy {:.4f}%".format(testing_accuracy * 100))
     print("Calculated accuracy in {:.2f} seconds".format(time.time() - start_time))
 
