@@ -78,22 +78,6 @@ model.add(Dropout(0.5))
 model.add(Dense(nb_classes))
 model.add(Activation('softmax'))
 
-# model.add(Convolution2D(32, 5, 5, border_mode='same',
-#                         input_shape=X_train.shape[1:]))
-# model.add(Activation('relu'))
-# model.add(MaxPooling2D(pool_size=(2, 2)))
-#
-# model.add(Convolution2D(64, 5, 5, border_mode='same'))
-# model.add(Activation('relu'))
-# model.add(MaxPooling2D(pool_size=(2, 2)))
-#
-# model.add(Flatten())
-# model.add(Dense(1024))
-# model.add(Activation('relu'))
-# model.add(Dropout(0.25))
-# model.add(Dense(nb_classes))
-# model.add(Activation('softmax'))
-
 print(model.summary())
 
 # let's train the model using SGD + momentum (how original).
