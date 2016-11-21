@@ -70,4 +70,3 @@ def activation_summary(tensor):
     tensor_name = tensor.op.name
     tf.histogram_summary(tensor_name + '/activations', tensor)
     tf.scalar_summary(tensor_name + '/sparsity', tf.nn.zero_fraction(tensor))
-    

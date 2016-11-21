@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c29e817-f7bf-4cbc-8067-3cc362eb5709" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/trafficSigns/Traffic_Signs_Recognition.ipynb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trafficSigns/sdc/data_batching.py" afterPath="$PROJECT_DIR$/trafficSigns/sdc/data_batching.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trafficSigns/sdc/layers.py" afterPath="$PROJECT_DIR$/trafficSigns/sdc/layers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trafficSigns/sdc/model.py" afterPath="$PROJECT_DIR$/trafficSigns/sdc/model.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_keras.py" afterPath="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_keras.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_tf.py" afterPath="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_tf.py" />
     </list>
     <ignored path="selfDrivingCar.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,14 +47,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layers.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="layers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/layers.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="677">
-              <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
+              <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -122,6 +127,7 @@
         <option value="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_tf.py" />
         <option value="$PROJECT_DIR$/trafficSigns/sdc/traffic_signs_keras.py" />
         <option value="$PROJECT_DIR$/trafficSigns/sdc/layers.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -552,7 +558,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_9_9109.jpg" />
     <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_10_7661.jpg" />
     <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_2_3407.jpeg" />
     <entry file="file://$PROJECT_DIR$/trafficSigns/data/images/aug_2.jpg" />
@@ -685,10 +690,18 @@
     <entry file="file://$PROJECT_DIR$/trafficSigns/sdc/layers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="677">
-          <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
+          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
