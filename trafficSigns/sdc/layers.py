@@ -4,7 +4,7 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 
-def conv2d(name, input, filter_length, nb_filter, strides=1, padding='SAME'):
+def conv2d(name, input, filter_length, nb_filter, strides=1, padding='SAME', show_info=True):
     # accepts tensor wiht shape [number_of_images, width, length, channels]
     channels = input.get_shape()[3]._value
     with tf.variable_scope(name):
@@ -17,33 +17,37 @@ def conv2d(name, input, filter_length, nb_filter, strides=1, padding='SAME'):
 
         x = tf.nn.bias_add(x, b)
         number_of_params = (filter_length*filter_length*channels + 1)*nb_filter
-        print_info(name, x.get_shape(), number_of_params)
+        if(show_info):
+            print_info(name, x.get_shape(), number_of_params)
         return x
 
 
-def maxpool2d(name, x, ksize=2, padding='VALID'):
+def maxpool2d(name, x, ksize=2, padding='VALID', show_info=True):
     out= tf.nn.max_pool(x, ksize=[1, ksize, ksize, 1], strides=[1, ksize, ksize, 1],
                           padding=padding, name=name)
-    print_info(name, x.get_shape(), 0)
+    if (show_info):
+        print_info(name, x.get_shape(), 0)
     return out
 
 
-def dropout_layer(name, input, fraction):
+def dropout_layer(name, input, fraction, show_info=True):
     out = tf.nn.dropout(input, fraction, name=name)
-    print_info(name, out.get_shape(), 0)
+    if (show_info):
+            print_info(name, out.get_shape(), 0)
     return out
 
 
-def flatten(name, input):
+def flatten(name, input, show_info=True):
     with tf.variable_scope(name):
         # turns tensor with shape [batch_size, a, b, c, ...] into tensor with shape [-1, a*b*c*...]
         flattenedSize = np.prod(input.get_shape().as_list()[1:])
         out =  tf.reshape(input, [-1, flattenedSize])
-        print_info(name, out.get_shape(), 0)
+        if (show_info):
+            print_info(name, out.get_shape(), 0)
         return out
 
 
-def dense(name, input, size):
+def dense(name, input, size, show_info=True):
     # fully connected layer
     input_size = input.get_shape()[1]._value
     with tf.variable_scope(name):
@@ -52,14 +56,16 @@ def dense(name, input, size):
         b = tf.get_variable("biases", size, initializer=tf.constant_initializer(0.0))
         out =  tf.add(tf.matmul(input, W), b)
         number_of_params = (input_size+1)*size
-        print_info(name, out.get_shape(), number_of_params)
+        if (show_info):
+            print_info(name, out.get_shape(), number_of_params)
         return out
 
 
-def relu(name, input):
+def relu(name, input, show_info=True):
     # relu activation
     out =  tf.nn.relu(input, name= name)
-    print_info(name, out.get_shape(), 0)
+    if (show_info):
+         print_info(name, out.get_shape(), 0)
     return out
 
 
