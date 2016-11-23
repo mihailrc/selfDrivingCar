@@ -17,7 +17,7 @@ class Model():
         self.n_classes = n_classes
         self.model_directory = self._set_directory(model_directory)
         self.checkpoints_dir = self._set_directory(model_directory + "/checkpoints/")
-        self.saver = tf.train.Saver()
+        self.saver = tf.train.Saver(max_to_keep=10)
 
     def _set_directory(self, directory):
         if not os.path.exists(directory):
@@ -64,7 +64,7 @@ class Model():
                       ", Total Training time = {:4.2f}".format(time.time() - start_time) )
 
             if (training_dataset.epochs_completed % checkpoint_step == 0 and training_dataset.current_batch==0):
-                self.saver.save(session, self.checkpoints_dir + 'model', global_step=training_dataset.epochs_completed-1)
+                self.saver.save(session, self.checkpoints_dir + 'model', global_step=training_dataset.epochs_completed)
 
             step += 1
         end_time = time.time()

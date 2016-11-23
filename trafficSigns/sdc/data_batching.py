@@ -5,10 +5,11 @@ from trafficSigns.sdc import image_processing as ip
 import numpy as np
 
 datagen = ip.ImageDataGenerator(
-    rotation_range=10,
-    width_shift_range=0.1,
-    height_shift_range=0.1,
-    zoom_range=0.1)
+    rotation_range=15,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    zoom_range=0.2,
+    shear_range=0.2)
 
 def generate_images(generator, images):
     generated_images = np.empty(np.append([0], images.shape[1:4]))

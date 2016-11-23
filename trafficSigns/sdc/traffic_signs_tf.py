@@ -4,7 +4,6 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 import pickle
-import os
 
 from trafficSigns.sdc import layers
 from trafficSigns.sdc import data_batching
@@ -92,26 +91,29 @@ y = tf.placeholder(tf.float32, [None, n_classes])
 conv_prob = tf.placeholder(tf.float32)
 hidden_prob = tf.placeholder(tf.float32)
 
-predictions = convolutional_net(x, n_classes, conv_prob, hidden_prob)
-
+logits = convolutional_net(x, n_classes, conv_prob, hidden_prob)
 # Define loss and optimizer
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(predictions, y))
+cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits, y))
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
 
 summary_op = tf.merge_all_summaries()
-correct_pred = tf.equal(tf.argmax(predictions, 1), tf.argmax(y, 1))
+correct_pred = tf.equal(tf.argmax(logits, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-test_dataset = data_batching.DataSet(X_test, y_test)
-training_epochs = 2
+
 
 # Initializing the variables
 init = tf.initialize_all_variables()
+
+test_dataset = data_batching.DataSet(X_test, y_test)
+training_epochs = 100
 train_dataset = data_batching.DataSet(X_train, y_train)
 
 train_dict = {conv_prob: 0.75, hidden_prob: 0.5}
 test_dict = {conv_prob: 1.0, hidden_prob: 1.0}
+
 model = model.Model(x, y,n_classes,train_dict, test_dict, "/tmp/traffic_signs")
+
 with tf.Session() as sess:
     sess.run(init)
-    model.train(sess, train_dataset, optimizer, cost, accuracy, summary_op,training_epochs, generate_image=False, checkpoint_step=1)
-    model.evaluate(test_dataset, predictions, sess)
+    model.train(sess, train_dataset, optimizer, cost, accuracy, summary_op,training_epochs, generate_image=True, checkpoint_step=10)
+    model.evaluate(test_dataset, logits, sess)
