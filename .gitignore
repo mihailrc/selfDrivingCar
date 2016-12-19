@@ -90,3 +90,14 @@ ENV/
 
 **/data
 **/.DS_Store
+
+#exlcude feature extraction stuff
+**/.ipynb_checkpoints
+**/__pycache__
+**/bvlc-alexnet.npy
+**/train.p
+**/.vscode
+**/bottlenecks
+**/model_small*
+**/more_data
+**/*.app
