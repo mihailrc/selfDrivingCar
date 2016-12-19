@@ -1,0 +1,175 @@
+
+
+Model:
+
+model_small_32x64
+
+Conv 2D 3x1x1
+Conv2D 32x3x3, 64x3x3, 128x3x3, Maxpool 2,2
+Dense 256, 64, 16
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.6
+steering adjustment = 0.2
+image size: 32x64
+Complete laps:
+Iteration 14
+Iteration 16 - touches red part
+
+model_small_64x64
+Conv 2D 3x1x1
+Conv2D 32x3x3, 64x3x3, 128x3x3, Maxpool 2,2
+Dense 256, 64, 16
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.6
+steering adjustment = 0.2
+image size: 64x64
+Complete laps:
+Iteration 10  - touches red part
+Iteration 11 - better but still touches red part a little bit
+Iteration 12 - still touches red part a little bit
+Iteration 13 - hard to tell if it still touches. Getting better
+Iteration 17 - touches red part close to dirt road
+Iteration 18 - touches red part close to dirt road
+Iteration 19 - touches red part close to dirt road
+Iteration 20 - touches red part close to dirt road Better than 17-19
+
+model_small_64x64_025
+same as small_64x64 but with steering adjustment=0.25 instead of 0.2
+Conv 2D 3x1x1
+Conv2D 32x3x3, 64x3x3, 128x3x3, Maxpool 2,2
+Dense 256, 64, 16
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.6
+steering adjustment = 0.25
+image size: 64x64
+Iteration 13 - touches red part close to dirt road
+Iteration 15 - touches red part close to dirt road, wavy
+Iteration 16 - touches red part close in two spots, wavy
+Iteration 20 - wavy
+
+model_small_64x64_025_no_channels - did not work too well
+Removed Conv2D 3x1x1
+Conv2D 32x3x3, 64x3x3, 128x3x3, Maxpool 2,2
+Dense 256, 64, 16
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.6
+steering adjustment = 0.25
+image size: 64x64
+
+
+model_small_64x64_08_prob
+Conv 2D 3x1x1
+Conv2D 32x3x3, 64x3x3, 128x3x3, Maxpool 2,2
+Dense 256, 64, 16
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.8
+steering adjustment = 0.2
+image size: 64x64
+Complete laps:
+Iteration 20  - looks pretty decent
+Iteration 19 - touches red part close to dirt road
+Iteration 17 - touches red part close lake
+Iteration 16 - touches red part in two spots
+Iteration 15 - touches red part close to dirt road
+Iteration 14  - looks pretty decent - touches red part the second time
+Iteration 13 - touches red part in two spots
+Iteration 12 - touches red part in two spots. Second lap almost fell into the lake
+Iteration 11  - looks pretty decent
+Iteration 10 - touches red part close lake
+
+model_small_64x64_03_lr
+Conv 2D 3x1x1
+Conv2D 32x3x3, 64x3x3, 128x3x3, Maxpool 2,2
+Dense 256, 64, 16
+Activation LeakyRELU
+LR: 0.00003
+bias probability = 0.8
+steering adjustment = 0.2
+image size: 64x64
+Epochs 15-20 all failed
+
+model_small_64x64_tsc
+Similar to model used for Traffic Sign Classification
+Conv2D 32x3x3, 32x3x3 MaxPool 2,2 Conv2D 64x3x3, 64x3x3, Maxpool 2,2
+Dense 512
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.8
+steering adjustment = 0.2
+image size: 64x64
+Iteration 20  - has small portion where it gets beyond yellow line. Very wavy
+Iteration 15  - hits red area a couple of times. Very wavy
+Iteration 10 - hits red area one time. Very wavy
+Iteration 5 - almost hits yellow line at dirt road. Goes a reasonable distance on Track 2
+Iteration 3 - almost hits yellow line at dirt road. Goes further on Track 2
+
+##USE THIS
+model_small_64x64_tsc_05_drop
+Similar to model used for Traffic Sign Classification
+Conv2D 32x3x3, 32x3x3 MaxPool 2,2 Conv2D 64x3x3, 64x3x3, Maxpool 2,2
+Dense 512
+Activation LeakyRELU
+Dropout 0.5 everywhere
+LR: 0.0001
+bias probability = 0.8
+steering adjustment = 0.2
+image size: 64x64
+Iteration 5 - almost hits yellow line at dirt road. Goes a reasonable distance on Track 2
+Iteration 3 - almost hits red area at lake. All the way on Track2 with adjusted throttle and steering angle.
+
+model_small_32x32_tsc
+Similar to model used for Traffic Sign Classification
+Conv2D 32x3x3, 32x3x3 MaxPool 2,2 Conv2D 64x3x3, 64x3x3, Maxpool 2,2
+Dense 512
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.8
+steering adjustment = 0.2
+image size: 32x32
+Iteration 10 - hits red area one time. Wavy. Gets stuck on Track2 really quick
+Iteration 5 - almost hits yellow line at dirt road. Gets stuck on Track2 really quick
+Iteration 3 - Does really well on Track1. Gets stuck on Track2 pretty quick.
+
+model_small_32x32_tsc_01_sa
+Similar to model used for Traffic Sign Classification
+Conv2D 32x3x3, 32x3x3 MaxPool 2,2 Conv2D 64x3x3, 64x3x3, Maxpool 2,2
+Dense 512
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.8
+steering adjustment = 0.1
+image size: 32x32
+Iteration 5 - ended up in lake
+
+model_small_32x32_tsc_extra_conv
+Similar to model used for Traffic Sign Classification
+Conv2D 3x1x1
+Conv2D 32x3x3, 32x3x3 MaxPool 2,2 Conv2D 64x3x3, 64x3x3, Maxpool 2,2
+Dense 512
+Activation LeakyRELU
+LR: 0.0001
+bias probability = 0.8
+steering adjustment = 0.2
+image size: 32x32
+Iteration 5 - does not make it past dirt road
+
+model_small_32x32_tsc_05_drop
+Similar to model used for Traffic Sign Classification
+Conv2D 32x3x3, 32x3x3 MaxPool 2,2 Conv2D 64x3x3, 64x3x3, Maxpool 2,2
+Dense 512
+Activation LeakyRELU
+Dropout 0.5 everywhere
+LR: 0.0001
+bias probability = 0.8
+steering adjustment = 0.2
+image size: 32x32
+Iteration 5 - Good on Track1. Gets stuck on Track2 really quick
+Iteration 3 - Does really well on Track1. Does reasonably well on Track2.
+
+Todo:
+ - 32x64 images
