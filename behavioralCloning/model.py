@@ -77,7 +77,7 @@ def generate_batch(data, data_dir, rows, cols, batch_size=32):
         for current in range(batch_size):
             line_index = np.random.randint(len(data))
             line_data = data.iloc[[line_index]].reset_index()
-            image, steering = biased_images(line_data, data_dir, rows, cols, 0.1, 0.8)
+            image, steering = biased_images(line_data, data_dir, rows, cols, 0.01, 0.8)
             batch_images[current] = image
             batch_steering[current] = steering
         yield batch_images, batch_steering
@@ -99,7 +99,7 @@ def create_model(img_rows, img_cols):
     model.add(LeakyReLU(name="Leaky Relu 3"))
     model.add(Convolution2D(64, 3, 3,name='Conv4'))
     model.add(LeakyReLU(name="Leaky Relu 4"))
-    model.add(MaxPooling2D(pool_size=(2, 2), name="MaxPool1"))
+    model.add(MaxPooling2D(pool_size=(2, 2), name="MaxPool2"))
     model.add(Dropout(0.5, name="Dropout_0.5_2"))
 
     model.add(Flatten(name="Flatten"))
