@@ -19,5 +19,5 @@ The goal of the project is to use Computer Vision techniques to identity lane li
   
   The goal of the project is to train a deep neural network to drive around a track using Udacity's simulator. Training data was collected by recording a user driving around the track. 
    
-   - [Solution](behavioralClonning)
+   - [Solution](behavioralCloning)
  
