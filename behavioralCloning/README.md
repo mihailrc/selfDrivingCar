@@ -43,7 +43,7 @@ Training data was augmented using the following mechanisms:
  - a lot of the images have zero steering value. To make training more efficient and to train the car to actually steer larger steering values were sampled more frequently than small ones.
 
 #### Model Architecture
-Experimented were performed with three different models. The first model was the Nvidia model. The second model consisted of 3 Convolution Layers with Max Pooling, a Flattened layer and 4 Fully Connected layers. These two models did not provide satisfactory results consistently. The model that performed best was a model very similar with the one used for the Traffic Signs classification project with minor tweaks. This model is summarized below:
+Experiments were performed with three different models. The first model was the Nvidia model. The second model consisted of 3 Convolution Layers with Max Pooling, a Flattened layer and 4 Fully Connected layers. These two models did not provide satisfactory results consistently. The model that performed best was a model very similar with the one used for the Traffic Signs classification project with minor tweaks. This model is summarized below:
 ```
 ____________________________________________________________________________________________________
 Layer (type)                     Output Shape          Param #     Connected to                     
@@ -108,10 +108,10 @@ The model succesfully completed Track 1 as seen in the recoding below.
 
 [Track 1 Video](https://youtu.be/W5o-G6e78Zk)
 
-The model generalizes well on and completes Track 2 succesfully although it was never trained on that track.
+The model generalizes well and completes Track 2 succesfully although it was never trained on that track.
 
 [Track 2 Video](https://youtu.be/vXzgXb1rkjw)
 
 It is important to note that the loss is not a good measure of the model quality. A model can have a very low loss for both training and validation datasets and perform worse than a model with an average loss. The quality of the model can be assessed by testing the model on the track. This makes intuitive sense. The loss looks at each image individually and it measures the mean square error between actual and predicted steering. On the other hand it makes more sense to assess the model using a more wholistic view that looks at multiple frames at a time or even at larger portions of the track. Intuitively a model that drives smoothly and does not get too close to the sides of the road is desirable however it is hard to quantify this.
 
-Initially I split the data into train/validation/test but once I realized the MSE  is not a good measure for model quality I stoped doing this. When I did the split the MSE errors for training and validation sets were similar. A better measure for me was to actually test the car on the track, see how it negociates turns and how it behaves on Track 2. In some sense the behavior on Track 1 is similar with using a validation set while driving on Track 2 is similar with using a testing set.
+Initially I split the data into train/validation/test but once I realized the MSE  is not a good measure for model quality I stoped doing this. A better measure for me was to actually test the car on the track, see how it negociates turns and especially how it behaves on Track 2. In some sense the behavior on Track 1 is similar with using a validation set while driving on Track 2 is similar with using a testing set.
