@@ -27,8 +27,7 @@ def load_image(imagepath, data_dir):
 
 
 def process_image(img, rows, cols):
-    cropped = img[50:137, ]
-    # cropped = img[55:, ]
+    cropped = img[30:137, ]
     return scipy.misc.imresize(cropped, [rows, cols])
 
 
@@ -40,10 +39,10 @@ def generate_training_data(line_data, data_dir, rows, cols):
         image_path = line_data['center'][0].strip()
     if (selected_image == 1):
         image_path = line_data['left'][0].strip()
-        steering_adjustment = 0.2
+        steering_adjustment = 0.25
     if (selected_image == 2):
         image_path = line_data['right'][0].strip()
-        steering_adjustment = -0.2
+        steering_adjustment = -0.25
     steering = line_data['steering'][0] + steering_adjustment
     image = load_image(image_path, data_dir)
     # crop and resize image
@@ -77,7 +76,7 @@ def generate_batch(data, data_dir, rows, cols, batch_size=32):
         for current in range(batch_size):
             line_index = np.random.randint(len(data))
             line_data = data.iloc[[line_index]].reset_index()
-            image, steering = biased_images(line_data, data_dir, rows, cols, 0.01, 0.8)
+            image, steering = biased_images(line_data, data_dir, rows, cols, 0.1, 0.8)
             batch_images[current] = image
             batch_steering[current] = steering
         yield batch_images, batch_steering
@@ -121,7 +120,7 @@ model.summary()
 adam = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
 model.compile(loss='mean_squared_error', optimizer=adam, metrics=[])
 
-nb_epoch = 20
+nb_epoch = 40
 
 model_dir = "model_small/"
 if os.path.exists(model_dir):
@@ -139,3 +138,6 @@ for epoch in range(nb_epoch):
     with open("{}model_{}.json".format(model_dir, epoch), 'w') as f:
         json.dump(json_string, f)
     model.save_weights("{}model_{}.h5".format(model_dir, epoch))
+
+
+

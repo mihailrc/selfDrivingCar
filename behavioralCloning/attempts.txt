@@ -171,5 +171,18 @@ image size: 32x32
 Iteration 5 - Good on Track1. Gets stuck on Track2 really quick
 Iteration 3 - Does really well on Track1. Does reasonably well on Track2.
 
-Todo:
- - 32x64 images
+
+model_small_32x64_tsc_05_drop_less_crop
+Similar to model used for Traffic Sign Classification
+Conv2D 32x3x3, 32x3x3 MaxPool 2,2 Conv2D 64x3x3, 64x3x3, Maxpool 2,2
+cropped 30-137
+Dense 512
+Activation LeakyRELU
+Dropout 0.5 everywhere
+LR: 0.0001
+bias probability = 0.8
+steering adjustment = 0.25
+image size: 32x64
+Iteration 23 - better
+Iteration 35
+

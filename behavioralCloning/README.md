@@ -24,7 +24,7 @@ The Training data set contains 8036 data points. Steering has decimal values bet
 
 #### Data processing
 
-Each image is cropped to only include rows between 50 and 137. Removing the top gets rid of irrelevant features like landscape, trees etc and removing the bottom gets rid of the car hood. The images are then resized to 32x64. Cropping and resizing is performed for both the training images and the images feed from the simulator during Autonomous Mode.
+Each image is cropped to only include rows between 30 and 137. Removing the top gets rid of irrelevant features like landscape, trees etc and removing the bottom gets rid of the car hood. The images are then resized to 32x64. Cropping and resizing is performed for both the training images and the images feed from the simulator during Autonomous Mode.
 
 Data normalization is performed by the first layer of the Model.
 
@@ -94,7 +94,7 @@ The model was tuned by adjusting the following parameters:
  - different activations: RELU, ELU and LeakyRELU. For this project LeakyRELU performed best
  - different values for Dropout. Initially the Dropout between Convolution layers was 0.25 but it was later changed to 0.5 throughout.
  - tuned the bias for selecting images with large steering value. One alternative I did not experiment with was to use different bias values for different epochs. For example start including more and more small steering values as training progresses.
- - tuned steering angle adjustment when using left or right images. Optimal value seems to be around 0.15 - 0.2. Selecting higher values results in wavy driving while lower values seem to require more training.
+ - tuned steering angle adjustment when using left or right images. Selecting higher values results in wavy driving but allows the car to make sharper turns which turns out to be useful for Track 2.
 
 The optimizer used in this project is Adam with default settings.
 
@@ -102,20 +102,16 @@ The optimizer used in this project is Adam with default settings.
 Training data was submitted in batches of 32 images using a custom generator that produced both the augmented image and the corresponding steering value. The image generator results in efficient memory usage and is more scalable.
 
 #### Results and discussion
-The model included in this project was trained on 10 epochs using 10,016 images per epoch.
+The model included in this project was trained on 23 epochs using 10,016 images per epoch.
 
-The model performed well on Track1 as seen in the recoding below.
+The model succesfully completed Track 1 as seen in the recoding below. 
 
-[Track 1 Video Recording](https://youtu.be/W5o-G6e78Zk)
+[Track 1 Video](https://youtu.be/W5o-G6e78Zk)
 
-The model generalizes well on Track 2 but it gets stuck at a very sharp right turn when using the drive.py script provided by Udacity.
+The model generalizes well on and completes Track 2 succesfully although it was never trained on that track.
 
-[Track 2 Video with Default Settings](https://youtu.be/l-aap46K_Wk)
+[Track 2 Video](https://youtu.be/vXzgXb1rkjw)
 
-In order to complete Track 2 successfully I adjusted the throttle to handle very steep slopes and also multiplied the steering to handle very sharp turns. This resulted in the model driving like it is on crack but at least it completed Track 2. In order to run the model with the adjusted setting use driveTrack2.py instead of drive.py
+It is important to note that the loss is not a good measure of the model quality. A model can have a very low loss for both training and validation datasets and perform worse than a model with an average loss. The quality of the model can be assessed by testing the model on the track. This makes intuitive sense. The loss looks at each image individually and it measures the mean square error between actual and predicted steering. On the other hand it makes more sense to assess the model using a more wholistic view that looks at multiple frames at a time or even at larger portions of the track. Intuitively a model that drives smoothly and does not get too close to the sides of the road is desirable however it is hard to quantify this.
 
-[Track 2 Video with Adjusted Settings](https://youtu.be/n8hbFaPRSDg)
-
-It is important to note that the loss is not a good measure of the model quality. A model can have a very low loss and perform worse than a model with an average loss. The quality of the model can be assessed by testing the model on the track. This makes intuitive sense. The loss looks at each image individually and it measures the mean square error between actual and predicted steering. On the other hand it makes more sense to assess the model using a more wholistic view that looks at multiple frames at a time or even at larger portions of the track. Intuitively a model that drives smoothly and does not get too close to the sides of the road is desirable however it is hard to quantify this.
-
-Initially I split the data into train/validation/test but once I realized the MSE  is not a good measure for model quality I stoped doing this. When I did the split the MSE errors for training, validation and test sets were similar. A better measure for me was to actually test the car on the track, see how it negociates turns and how it behaves on Track 2.
+Initially I split the data into train/validation/test but once I realized the MSE  is not a good measure for model quality I stoped doing this. When I did the split the MSE errors for training and validation sets were similar. A better measure for me was to actually test the car on the track, see how it negociates turns and how it behaves on Track 2. In some sense the behavior on Track 1 is similar with using a validation set while driving on Track 2 is similar with using a testing set.
