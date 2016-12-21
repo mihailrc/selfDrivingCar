@@ -24,7 +24,7 @@ The Training data set contains 8036 data points. Steering has decimal values bet
 
 #### Data processing
 
-Each image is cropped to only include rows between 30 and 137. Removing the top gets rid of irrelevant features like landscape, trees etc and removing the bottom gets rid of the car hood. The images are then resized to 32x64. Cropping and resizing is performed for both the training images and the images feed from the simulator during Autonomous Mode.
+Each image is cropped to only include rows between 30 and 137. Removing the top reduces some of the irrelevant features like landscape, trees etc and removing the bottom gets rid of the car hood. The images are then resized to 32x64. Cropping and resizing is performed for both the training images and the images feed from the simulator during Autonomous Mode.
 
 Data normalization is performed by the first layer of the Model.
 
@@ -104,7 +104,7 @@ Training data was submitted in batches of 32 images using a custom generator tha
 #### Results and discussion
 The model included in this project was trained on 23 epochs using 10,016 images per epoch.
 
-The model succesfully completed Track 1 as seen in the recoding below. 
+The model succesfully completed Track 1 as seen in the recoding below.
 
 [Track 1 Video](https://youtu.be/W5o-G6e78Zk)
 
