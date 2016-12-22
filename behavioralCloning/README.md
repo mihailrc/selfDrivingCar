@@ -102,7 +102,7 @@ The optimizer used in this project is Adam with default settings.
 Training data was submitted in batches of 32 images using a custom generator that produced both the augmented image and the corresponding steering value. The image generator results in efficient memory usage and is more scalable.
 
 #### Results and discussion
-The model included in this project was trained on 23 epochs using 10,016 images per epoch.
+The model included in this project was trained on 33 epochs using 10,016 images per epoch.
 
 The model succesfully completed Track 1 as seen in the recoding below.
 
@@ -112,6 +112,22 @@ The model generalizes well and completes Track 2 succesfully although it was nev
 
 [Track 2 Video](https://youtu.be/vXzgXb1rkjw)
 
-It is important to note that the loss is not a good measure of the model quality. A model can have a very low loss for both training and validation datasets and perform worse than a model with an average loss. The quality of the model can be assessed by testing the model on the track. This makes intuitive sense. The loss looks at each image individually and it measures the mean square error between actual and predicted steering. On the other hand it makes more sense to assess the model using a more wholistic view that looks at multiple frames at a time or even at larger portions of the track. Intuitively a model that drives smoothly and does not get too close to the sides of the road is desirable however it is hard to quantify this.
+### Training and Validation split
 
-Initially I split the data into train/validation/test but once I realized the MSE  is not a good measure for model quality I stoped doing this. A better measure for me was to actually test the car on the track, see how it negociates turns and especially how it behaves on Track 2. In some sense the behavior on Track 1 is similar with using a validation set while driving on Track 2 is similar with using a testing set.
+Data was split into a training and validation sets using a 90/10 split. Before splitting the data was shuffled.
+
+Training loss and validation loss is shown in the figure below.
+
+<img src="img_processing/train_vs_validation.jpg" width="600" height="600">
+
+Training loss decreases with the number of epochs as expected. On the other hand validation loss seems to decrease for the first 28 or so epochs, seems to be relatively flat between 28 and 45 epochs then seems to increase after 45 epochs. This would suggest overfitting after 45 epochs. This analysis is qualitative and others may interpret this differently because the lines are not very smooth. Based on my interpretation of the lines I selected the checkpoint for epoch 33 for this project.
+
+
+### Personal Opinion
+
+What I said with the initial submission still stands based on my experience with this model after hundreds of runs.
+It is important to note that for this project the loss(at least the MSE between predicted and actual steering angle) is not a good measure of the model quality. Based on the discussions on Slack it seems I am not the only one that has this opinion. I saw models with a lower loss for both training and validation datasets and perform worse than a model with a higher loss. The quality of the model can be assessed by testing the model on the track. This makes intuitive sense. The loss looks at each image individually and it measures the mean square error between actual and predicted steering. On the other hand it makes more sense to assess the model using multiple frames at a time or even at larger portions of the track. Intuitively a model that drives smoothly and does not get too close to the sides of the road is desirable but I found it hard to quantify this.
+
+Maybe a better approach is to train across frames(say 32 images at a time) using 3D convolutions vs 2D convolutions. Also instead of using as loss the MSE between predicted and actual steering angle maybe it is better to use the difference between calculated trajectory and predicted trajectory across the frames. I did not have time to experiment with this but it may turn out to be interesting. Such a model would predict not only steering but also speed.
+
+Although the reviewer will probably disagree with me a better measure for me to measure the model quality was to actually test the car on the track, see how it negociates turns and especially how it behaves on Track 2. In some sense the behavior on Track 1 is similar with using a validation set while driving on Track 2 is similar with using a testing set.
