@@ -13,11 +13,11 @@ The goal of the project is to use Computer Vision techniques to identity lane li
 
  - [Solution](Traffic_Signs_Recognition.ipynb)
  - [Udacity review](trafficSigns/Udacity_Review.pdf)
- 
+
 
 ### Behavioral Cloning
-  
-  The goal of the project is to train a deep neural network to drive around a track using Udacity's simulator. Training data was collected by recording a user driving around the track. 
-   
+
+  The goal of the project is to train a deep neural network to drive around a track using Udacity's simulator. Training data was collected by recording a user driving around the track.
+
    - [Solution](behavioralCloning)
- 
+   - [Udacity review](behavioralCloning/Udacity_Review.pdf)
