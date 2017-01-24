@@ -173,4 +173,4 @@ We can use more techniques for generating binary images like using the magnitude
 
 Extracting lines from binary images may benefit from a more sophisticated approach as well. For example we can split the image into multiple horizontal slices and exclude the slices that are of poor quality.
 
-These suggestions involve tweaking lots of parameters and using a relatively slow approach that requires handling problem areas one by one. A different approach that may generalize better is to try to use CNN's. That would require no tweaking but it also means we loose intuition about what works and what does not.
+These suggestions involve tweaking lots of parameters and using a relatively slow approach that requires handling problem areas one by one. A different approach that may generalize better is to try to use CNN's. That would require no tweaking but it also means we lose intuition about what works and what does not.
