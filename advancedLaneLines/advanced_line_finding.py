@@ -51,16 +51,16 @@ def read_calibration_data():
     return mtx,dist
 
 def plot_images(images, rows, cols, titles):
-    gs = gridspec.GridSpec(rows, cols, top=1.0, bottom=.0, right=.7, left=0., hspace=0.3,
-                           wspace=0.1)
-
+    # gs = gridspec.GridSpec(rows, cols, top=1.0, bottom=.0, right=.7, left=0., hspace=0.3,
+    #                        wspace=0.1)
+    gs = gridspec.GridSpec(rows, cols)
     for index, g in enumerate(gs):
         ax = plt.subplot(g)
         img = images[index]
         ax.imshow(img)
         plt.imshow(img, cmap=plt.get_cmap('gray'))
-        # ax.set_xticks([])
-        # ax.set_yticks([])
+        ax.set_xticks([])
+        ax.set_yticks([])
         plt.title(titles[index])
 
     plt.show()
@@ -280,15 +280,15 @@ class LineDetector():
         x = fit[0] * y ** 2 + fit[1] * y + fit[2]
         return x,y
 
-    def calc_curvature(self, fit, y):
+    def calculate_curvature_pixels(self, fit, y):
         return (1 + (2 * fit[0] * y + fit[1]) ** 2) ** 1.5 / 2 / fit[0]
 
-    def calculate_curvature(self, line, y):
+    def calculate_curvature_meters(self, all_y, all_x, y):
         ym_per_pix = 30 / 720  # meters per pixel in y dimension
         xm_per_pix = 3.7 / 900  # meteres per pixel in x dimension
-        points = np.nonzero(line)
-        all_x = points[0]
-        all_y = points[1]
+        # points = np.nonzero(line)
+        # all_x = points[0]
+        # all_y = points[1]
         if(all_x.size>0):
             fit = np.polyfit(all_y*ym_per_pix, all_x*xm_per_pix, 2)
             curvature = ((1 + (2 * fit[0] * y + fit[1]) ** 2) ** 1.5) \
@@ -369,79 +369,84 @@ class LineDetector():
         draw_lines(bird_eye_fill, np.int_(left_points), lane_color)
         draw_lines(bird_eye_fill, np.int_(right_points), lane_color)
 
-        return self.camera.unwarp_image(bird_eye_fill, (bird_eye.shape[1], bird_eye.shape[0]))
+        return bird_eye_fill, self.camera.unwarp_image(bird_eye_fill, (bird_eye.shape[1], bird_eye.shape[0]))
 
     def draw_information(self, image):
-        left_curvature = self.calculate_curvature(left, image.shape[0] / 2)
-        right_curvature = self.calculate_curvature(right, image.shape[0] / 2)
+        left_curvature_m = self.calculate_curvature_meters(self.leftLine.current_fit[0],self.leftLine.current_fit[1], image.shape[0])
+        right_curvature_m = self.calculate_curvature_meters(self.rightLine.current_fit[0],self.rightLine.current_fit[1], image.shape[0])
+        left_curvature = self.calculate_curvature_pixels(self.leftLine.current_fit[2], image.shape[0])
+        right_curvature = self.calculate_curvature_pixels(self.rightLine.current_fit[2], image.shape[0])
         font = cv2.FONT_HERSHEY_COMPLEX
+        curvature_string_m = 'Curvature M: Left = {0}, Right = {1}'.format(np.round(left_curvature_m, 2),
+                                                                       np.round(right_curvature_m, 2))
         curvature_string = 'Curvature: Left = {0}, Right = {1}'.format(np.round(left_curvature, 2),
                                                                        np.round(right_curvature, 2))
         cv2.putText(image, curvature_string, (30, 60), font, 1, (0, 255, 0), 2)
-
+        cv2.putText(image, curvature_string_m, (30, 90), font, 1, (0, 255, 0), 2)
         offset = ((self.leftLine.current_fit[1][10] + self.rightLine.current_fit[1][10]) / 2 - image.shape[1] / 2) * 3.7 / 900
         offset_string = 'Lane deviation: {} cm.'.format(np.round(offset * 100, 2))
-        cv2.putText(image, offset_string, (30, 90), font, 1, (0, 255, 0), 2)
+        cv2.putText(image, offset_string, (30, 120), font, 1, (0, 255, 0), 2)
         return image
 
-    def process_image_2(self,img):
-        [undistorted, bird_eye, binary, gradient_binary] = self.process_image(img)
-
+    def find_best_fit(self, binary, gradient_binary):
+        # find best fit
         # 1. if current fit found - fast extract from binary
         # 2. if frame not valid do full scan
         # 3. if this fails use current frame if less than 5 frames
         # 4. otherwise use results from full scan
+        if (self.has_current_fit()):
+            left, right = self.fast_extract(binary)
+            left_y, left_x, left_fit = self.fit_line(left)
+            right_y, right_x, right_fit = self.fit_line(right)
 
-        if(self.has_current_fit()):
-           left, right  = self.fast_extract(binary)
-           left_y, left_x, left_fit = self.fit_line(left)
-           right_y, right_x, right_fit = self.fit_line(right)
-
-           if (not self.is_frame_valid(left_x, right_x)):
-               print('doing full scan')
-               left, right = self.extract_best_lines(binary, gradient_binary)
-               left_y, left_x, left_fit = self.fit_line(left)
-               right_y, right_x, right_fit = self.fit_line(right)
-           else:
-               self.skipped_frames = 0
-           if (not self.is_frame_valid(left_x, right_x) and self.skipped_frames<5):
-               left = self.leftLine.currentLine
-               right = self.rightLine.currentLine
-               [left_y, left_x, left_fit] = self.leftLine.current_fit
-               [right_y, right_x, right_fit] = self.rightLine.current_fit
-               self.skipped_frames = self.skipped_frames + 1
-           else:
-               self.skipped_frames = 0
+            if (not self.is_frame_valid(left_x, right_x)):
+                print('doing full scan')
+                left, right = self.extract_best_lines(binary, gradient_binary)
+                left_y, left_x, left_fit = self.fit_line(left)
+                right_y, right_x, right_fit = self.fit_line(right)
+            else:
+                self.skipped_frames = 0
+            if (not self.is_frame_valid(left_x, right_x) and self.skipped_frames < 5):
+                left = self.leftLine.currentLine
+                right = self.rightLine.currentLine
+                [left_y, left_x, left_fit] = self.leftLine.current_fit
+                [right_y, right_x, right_fit] = self.rightLine.current_fit
+                self.skipped_frames = self.skipped_frames + 1
+            else:
+                self.skipped_frames = 0
         else:
             left, right = self.extract_best_lines(binary, gradient_binary)
             left_y, left_x, left_fit = self.fit_line(left)
             right_y, right_x, right_fit = self.fit_line(right)
 
+        # refresh line fields
         self.leftLine.currentLine = left
         self.rightLine.currentLine = right
 
-        if(self.has_current_fit()):
-            #apply smoothing
+        if (self.has_current_fit()):
+            # apply smoothing
             sf = 0.2
-            self.leftLine.current_fit[1] = sf*left_x + (1-sf)*self.leftLine.current_fit[1]
+            self.leftLine.current_fit[1] = sf * left_x + (1 - sf) * self.leftLine.current_fit[1]
             self.leftLine.current_fit[2] = sf * left_fit + (1 - sf) * self.leftLine.current_fit[2]
-            self.rightLine.current_fit[1] = sf*right_x + (1-sf)*self.rightLine.current_fit[1]
+            self.rightLine.current_fit[1] = sf * right_x + (1 - sf) * self.rightLine.current_fit[1]
             self.rightLine.current_fit[2] = sf * right_fit + (1 - sf) * self.rightLine.current_fit[2]
         else:
             self.leftLine.current_fit = [left_y, left_x, left_fit]
             self.rightLine.current_fit = [right_y, right_x, right_fit]
 
-        # print("Left fit {0} Right Fit {1}".format(lineDetector.leftLine.current_fit[2],
-        #                                           lineDetector.rightLine.current_fit[2]))
+    def process_image_2(self,img):
+        [undistorted, bird_eye, binary, gradient_binary] = self.process_image(img)
 
-        if(not self.are_lines_parallel(left_x, right_x) and left_x is not None and right_x is not None):
-            message = "Lines not parallel bottom {0} middle {1} top {2}".format(right_x[10] - left_x[10] - 900,
-                                                                            right_x[5] - left_x[5] - 900,
-                                                                            right_x[0] - left_x[0] - 900)
-            print(message)
+        self.find_best_fit(binary, gradient_binary)
+
+        # if(not self.are_lines_parallel(left_x, right_x) and left_x is not None and right_x is not None):
+        #     message = "Lines not parallel bottom {0} middle {1} top {2}".format(right_x[10] - left_x[10] - 900,
+        #                                                                     right_x[5] - left_x[5] - 900,
+        #                                                                     right_x[0] - left_x[0] - 900)
+        #     print(message)
 
 
-        unwarped = self.draw_area_between_lines(bird_eye)
+        bird_eye_lines, unwarped = self.draw_area_between_lines(bird_eye)
 
         image_with_lanes  = overlap_images(undistorted, unwarped)
 
@@ -459,20 +464,20 @@ images = ['test_images/test4.jpg']
 
 lineDetector = LineDetector()
 
-for image in images:
-    print(image)
-    img = mpimg.imread(image)
-    [undistorted, bird_eye, binary, gradient_binrary] = lineDetector.process_image(img)
-    left, right = lineDetector.extract_lines(binary)
-    if(left is None):
-        left, right = lineDetector.extract_lines(gradient_binrary)
-    if(left is None):
-        left, right = binary, binary
-
-    print(left.shape, right.shape)
-    processed = lineDetector.process_image_2(img)
-    plot_images([bird_eye, binary, lineDetector.leftLine.currentLine, lineDetector.rightLine.currentLine], 2, 2, ['Brdie', 'Binary', 'Left', 'Right'])
-    plot_images([processed], 1,1,['Result'])
+# for image in images:
+#     print(image)
+#     img = mpimg.imread(image)
+#     [undistorted, bird_eye, binary, gradient_binrary] = lineDetector.process_image(img)
+#     left, right = lineDetector.extract_lines(binary)
+#     if(left is None):
+#         left, right = lineDetector.extract_lines(gradient_binrary)
+#     if(left is None):
+#         left, right = binary, binary
+#
+#     print(left.shape, right.shape)
+#     processed = lineDetector.process_image_2(img)
+#     plot_images([bird_eye, binary, lineDetector.leftLine.currentLine, lineDetector.rightLine.currentLine], 2, 2, ['Brdie', 'Binary', 'Left', 'Right'])
+#     plot_images([processed], 1,1,['Result'])
 
 from moviepy.editor import VideoFileClip
 #
@@ -491,6 +496,47 @@ def processVideo(filename):
     output_clip.write_videofile(output_movies_dir + filename, audio=False)
 #
 # processVideo("project_video.mp4")
+
+img = mpimg.imread('test_images/test4.jpg')
+
+gaussian_blur = lineDetector.camera.gaussian_blur(img)
+
+[undistorted, bird_eye, binary, gradient_binary] = lineDetector.process_image(img)
+
+color_binary = lineDetector.color_binary(bird_eye)
+
+left, right = lineDetector.extract_lines(binary)
+
+lineDetector.find_best_fit(binary, gradient_binary)
+
+bird_eye_lines, bird_eye_unwraped = lineDetector.draw_area_between_lines(bird_eye)
+
+overlaped = overlap_images(undistorted, bird_eye_unwraped)
+
+result = lineDetector.draw_information(overlaped)
+
+
+# plot_images([img,undistorted, bird_eye, color_binary, gradient_binary,
+#              binary, left, right,bird_eye_lines, bird_eye_unwraped, overlaped, overlaped], 4 , 3,
+#             ['Original',  'Undistorted', 'Bird Eye', 'Color Binary', 'Gradient Binary',
+#              'Combined Binary', 'Left Line', 'Right Line', 'Lines Fit', 'Lines Fit Unwarped', 'Overlaped', 'Result'])
+
+mpimg.imsave('output_images/original.jpg', img)
+# mpimg.imsave('output_images/gaussian_blur.jpg', gaussian_blur)
+# mpimg.imsave('output_images/undistorted.jpg', undistorted)
+# mpimg.imsave('output_images/bird_eye.jpg', bird_eye)
+# mpimg.imsave('output_images/combined_binary.jpg', binary)
+# mpimg.imsave('output_images/gradient_binary.jpg', gradient_binary)
+# mpimg.imsave('output_images/color_binary.jpg', color_binary)
+# mpimg.imsave('output_images/left.jpg', left)
+# mpimg.imsave('output_images/right.jpg', right)
+# mpimg.imsave('output_images/bird_eye_lines.jpg', bird_eye_lines)
+# mpimg.imsave('output_images/bird_eye_unwraped.jpg', bird_eye_unwraped)
+# mpimg.imsave('output_images/overlaped.jpg', overlaped)
+mpimg.imsave('output_images/result.jpg', result)
+
+
+
 
 
 
