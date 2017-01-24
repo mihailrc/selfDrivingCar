@@ -105,11 +105,40 @@ The combined binary puts the two binaries together. Examples of these binary ima
 There are two methods for extracting line pixels. The first method can be applied for the first frame or when the lines have to be identified from scratch. The second method relies on lines identified in the previous frame.
 
 ##### Identifying lines for first frame
-The first step is calculating the moving average for pixel intensities across x axis for a binary image. To identify pixels from the left lane we determine the x coordinates that exceed a certain threshold and we retain all pixels on the left half of the image that are between these coordinates. We use a similar approach for the right lane. Although this approach is much simpler than the sliding window approach it performs surprisingly well. This idea was originally presented by Vivek Yadav in this paper.
+The first step is calculating the moving average for pixel intensities across x axis for a binary image.
 
-TODO show histogram
+<img src="output_images/moving_average.jpg">
+
+To identify pixels from the left lane we determine the x coordinates that exceed a certain threshold and we retain all pixels on the left half of the image that are between these coordinates. We use a similar approach for the right lane. Although this approach is much simpler than the sliding window approach it performs surprisingly well. This idea was originally presented by Vivek Yadav in this paper.
 
 In some cases we could not identify small enough regions that meet these criteria. In this case we ended up using the gradient binary versus the combined binary. This turned out to work well especially for images with a lot of shade as shown below.
+
+<table>
+  <tr>
+    <th>Original</th>
+    <th>Bird Eye</th>
+  <tr>
+  <tr>
+   <td><img src="output_images/original_shade.jpg"></td>
+   <td><img src="output_images/bird_eye_shade.jpg"></td>
+  </tr>
+  <tr>
+    <th>Combined Binary</th>
+    <th>Gradient Binary</th>
+  <tr>
+  <tr>
+   <td><img src="output_images/combined_binary_shade.jpg"></td>
+   <td><img src="output_images/gradient_binary_shade.jpg"></td>
+  </tr>
+  <tr>
+    <th>Left</th>
+    <th>Right</th>
+  <tr>
+  <tr>
+   <td><img src="output_images/left_shade.jpg"></td>
+   <td><img src="output_images/right_shade.jpg"></td>
+  </tr>
+</table>  
 
 The methods that extract the line pixels are extract_lines() and extract_best_lines() and can be found here.
 

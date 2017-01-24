@@ -209,8 +209,8 @@ class LineDetector():
 
         # plt.plot(mean_lane > .075)
         # plt.plot(mean_lane)
-        # plt.xlabel('image x')
-        # plt.ylabel('mean intensity')
+        # plt.xlabel('X')
+        # plt.ylabel('Moving Average')
         # plt.show()
 
         img_size = binary.shape
@@ -506,7 +506,7 @@ def processVideo(filename):
 #
 # processVideo("project_video.mp4")
 
-img = mpimg.imread('test_images/test4.jpg')
+img = mpimg.imread('test_images/test10.jpg')
 
 gaussian_blur = lineDetector.camera.gaussian_blur(img)
 
@@ -514,7 +514,7 @@ gaussian_blur = lineDetector.camera.gaussian_blur(img)
 
 color_binary = lineDetector.color_binary(bird_eye)
 
-left, right = lineDetector.extract_lines(binary)
+left, right = lineDetector.extract_best_lines(binary,gradient_binary)
 
 lineDetector.find_best_fit(binary, gradient_binary)
 
@@ -530,19 +530,19 @@ result = lineDetector.draw_information(overlaped)
 #             ['Original',  'Undistorted', 'Bird Eye', 'Color Binary', 'Gradient Binary',
 #              'Combined Binary', 'Left Line', 'Right Line', 'Lines Fit', 'Lines Fit Unwarped', 'Overlaped', 'Result'])
 
-mpimg.imsave('output_images/original.jpg', img)
+mpimg.imsave('output_images/original_shade.jpg', img)
 # mpimg.imsave('output_images/gaussian_blur.jpg', gaussian_blur)
 # mpimg.imsave('output_images/undistorted.jpg', undistorted)
-# mpimg.imsave('output_images/bird_eye.jpg', bird_eye)
-# mpimg.imsave('output_images/combined_binary.jpg', binary)
-# mpimg.imsave('output_images/gradient_binary.jpg', gradient_binary)
+mpimg.imsave('output_images/bird_eye_shade.jpg', bird_eye)
+mpimg.imsave('output_images/combined_binary_shade.jpg', binary)
+mpimg.imsave('output_images/gradient_binary_shade.jpg', gradient_binary)
 # mpimg.imsave('output_images/color_binary.jpg', color_binary)
-# mpimg.imsave('output_images/left.jpg', left)
-# mpimg.imsave('output_images/right.jpg', right)
+mpimg.imsave('output_images/left_shade.jpg', left)
+mpimg.imsave('output_images/right_shade.jpg', right)
 # mpimg.imsave('output_images/bird_eye_lines.jpg', bird_eye_lines)
 # mpimg.imsave('output_images/bird_eye_unwraped.jpg', bird_eye_unwraped)
 # mpimg.imsave('output_images/overlaped.jpg', overlaped)
-mpimg.imsave('output_images/result.jpg', result)
+# mpimg.imsave('output_images/result.jpg', result)
 
 
 

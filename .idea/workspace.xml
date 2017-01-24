@@ -26,8 +26,8 @@
       <file leaf-file-name="advanced_line_finding.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/advancedLaneLines/advanced_line_finding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="379" column="32" selection-start-line="379" selection-start-column="8" selection-end-line="379" selection-end-column="32" />
+            <state relative-caret-position="302">
+              <caret line="213" column="20" selection-start-line="209" selection-start-column="7" selection-end-line="213" selection-end-column="20" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -527,36 +527,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/behavioralCloning/data/IMG/center_2016_12_01_13_33_59_144.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/behavioralCloning/data/IMG/center_2016_12_01_13_33_02_052.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/behavioralCloning/data/IMG/center_2016_12_01_13_33_31_214.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/behavioralCloning/data/IMG/center_2016_12_01_13_33_44_198.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/behavioralCloning/data/IMG/center_2016_12_01_13_33_47_059.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/behavioralCloning/data/IMG/center_2016_12_01_13_33_53_763.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/behavioralCloning/data/driving_log.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8490">
@@ -762,10 +732,40 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/advancedLaneLines/output_images/histogram.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/advancedLaneLines/test_images/test11.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/advancedLaneLines/test_images/test12.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/advancedLaneLines/test_images/test10.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/advancedLaneLines/test_images/test9.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/advancedLaneLines/test_images/test8.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/advancedLaneLines/advanced_line_finding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="379" column="32" selection-start-line="379" selection-start-column="8" selection-end-line="379" selection-end-column="32" />
+        <state relative-caret-position="302">
+          <caret line="213" column="20" selection-start-line="209" selection-start-column="7" selection-end-line="213" selection-end-column="20" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
