@@ -4,8 +4,7 @@
 
 Camera was calibrated using 20 chessboard pattern images provided in the project repository.
 
-TODO - add link with code
-The code that performs camera calibration can be found here.
+The code that performs camera calibration can be found [here](./sdc/utils.py).
 
 calibrateCamera() takes as input the path to the calibration images directory and outputs the calibration matrix and distortion coefficients. This method uses OpenCV methods findChessboardCorners() and calibrateCamera() to calculate the calibration coefficients. These coefficients are saved in a pickle file in order to avoid calculating them over and over again.
 
@@ -92,7 +91,7 @@ The set of transformation applied to an image is presented below.
 ### Perspective transform
 The goal of the perspective transform is to provide a bird eye view of the lines so they appear parallel in the transformed image. Transforming back and forth between regular and bird-eye view is done using two transformation matrices.
 
-The method that calculates these matrices is called get_transformation_matrices() and can be found in Camera class. This method uses OpenCV's getPerspectiveTransform() and manually provided source and destination points. An example of the bird-eye image was presented above and as expected shows the parallel lanes.
+The method that calculates these matrices is called get_transformation_matrices() and can be found [here](./sdc/camera.py). This method uses OpenCV's getPerspectiveTransform() and manually provided source and destination points. An example of the bird-eye image was presented above and as expected shows the parallel lanes.
 
 ### Creating the binary image
 The binary image is created using a combination of color gradient thresholding. Color thresholding first transforms the image from RGB to HLS space then applies a threshold on S channel.
@@ -100,6 +99,8 @@ The binary image is created using a combination of color gradient thresholding. 
 Gradient thresholding first transform the image into the gray scale the calculates Sobel gradient along x axis because this gradient will emphasize vertical lines.
 
 The combined binary puts the two binaries together. Examples of these binary images can be found above.
+
+The code that creates binary images can be found [here](./sdc/camera.py)
 
 ### Line identification
 There are two methods for extracting line pixels. The first method can be applied for the first frame or when the lines have to be identified from scratch. The second method relies on lines identified in the previous frame.
@@ -109,7 +110,7 @@ The first step is calculating the moving average for pixel intensities across x 
 
 <img src="output_images/moving_average.jpg">
 
-To identify pixels from the left lane we determine the x coordinates that exceed a certain threshold and we retain all pixels on the left half of the image that are between these coordinates. We use a similar approach for the right lane. Although this approach is much simpler than the sliding window approach it performs surprisingly well. This idea was originally presented by Vivek Yadav in this paper.
+To identify pixels from the left lane we determine the x coordinates that exceed a certain threshold and we retain all pixels on the left half of the image that are between these coordinates. We use a similar approach for the right lane. Although this approach is much simpler than the sliding window approach it performs surprisingly well. This idea was originally presented by Vivek Yadav in this [paper](https://medium.com/@vivek.yadav/robust-lane-finding-using-advanced-computer-vision-techniques-mid-project-update-540387e95ed3#.h5ihmyh3b).
 
 In some cases we could not identify small enough regions that meet these criteria. In this case we ended up using the gradient binary versus the combined binary. This turned out to work well especially for images with a lot of shade as shown below.
 
@@ -140,10 +141,10 @@ In some cases we could not identify small enough regions that meet these criteri
   </tr>
 </table>  
 
-The methods that extract the line pixels are extract_lines() and extract_best_lines() and can be found here.
+The methods that extract the line pixels are extract_lines() and extract_best_lines() and can be found [here](./sdc/line_detector.py).
 
 ##### Identifying lines using lines from previous frame
-This method splits the image into top and bottom half, then retains all pixels in a band around x coordinates for both left and right lines. The method that extract the lines is fast_extract() and can be found here.
+This method splits the image into top and bottom half, then retains all pixels in a band around x coordinates for both left and right lines. The method that extract the lines is fast_extract() and can be found [here](./sdc/line_detector.py).
 
 Once the left and right line pixels are identified we approximate these points with a second degree polynomial using numpy's polyfit()
 
@@ -153,12 +154,12 @@ Extracting line pixels does not mean that we identified the correct lines. The v
 To avoid jitter we are using a smoothing factor before refreshing current fit data.
 
 ### Radius of curvature and vehicle position
-The radius of curvature is calculated using the polynomial coefficients from the current fit and the method presented in class. The method that performs this calculation is calculate_curvature_meters() and can be found here.
+The radius of curvature is calculated using the polynomial coefficients from the current fit and the method presented in class. The method that performs this calculation is calculate_curvature_meters() and can be found [here](./sdc/line_detector.py).
 
 Vehicle position is determined by calculating the difference between the middle of the image and the average value of the x coordinates for the left and right lines at the bottom of the image. The method that calculates vehicle position is calculate_vehicle_offset()
 
 #### Pipeline (video)
-We used moviepy to apply the image transformation to the project video. The resulting video can be found here.
+We used moviepy to apply the image transformation to the project video. The resulting video can be found [here](https://youtu.be/OV1l5xFHiwQ)
 
 #### Discussion
 Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?

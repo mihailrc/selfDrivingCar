@@ -12,6 +12,7 @@ import matplotlib.gridspec as gridspec
 matplotlib.use('TkAgg')
 
 import matplotlib.pyplot as plt
+
 def calibrateCamera(imagesPath, rows, cols):
     images = glob.glob(imagesPath)
 

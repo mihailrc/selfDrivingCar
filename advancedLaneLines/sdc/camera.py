@@ -8,10 +8,10 @@ matplotlib.use('TkAgg')
 from advancedLaneLines.sdc import utils
 
 class Camera():
+
     def __init__(self, img_shape):
         # camera distortion matrices
         [self.mtx, self.dist] = utils.read_calibration_data()
-
         # perspective transformation matrices
         self.M,self.Minv = self.get_transformation_matrices(img_shape)
 
@@ -67,7 +67,6 @@ class Camera():
         thresh_min = 30
         thresh_max = 150
         sxbinary = np.zeros_like(scaled_sobel)
-        # sxbinary[(scaled_sobel >= thresh_min) & (scaled_sobel <= thresh_max)] = 1
         retval, sxthresh = cv2.threshold(scaled_sobel, 30, 150, cv2.THRESH_BINARY)
         sxbinary[(sxthresh >= thresh_min) & (sxthresh <= thresh_max)] = 1
         return sxbinary

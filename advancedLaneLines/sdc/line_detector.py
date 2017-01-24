@@ -6,6 +6,7 @@ from advancedLaneLines.sdc import line
 from advancedLaneLines.sdc import utils
 
 class LineDetector():
+
     def __init__(self):
         self.camera = camera.Camera((720, 1280, 3))
         self.leftLine = line.Line()
@@ -72,8 +73,7 @@ class LineDetector():
 
         return left, right
 
-        # extract lines from combined binary. If that fails try gradient binary only. If that still fails return binary
-
+    # extract lines from combined binary. If that fails try gradient binary only. If that still fails return binary
     def extract_best_lines(self, binary, gradient_binary):
         left, right = self.extract_lines(binary)
 
@@ -131,9 +131,6 @@ class LineDetector():
         x = fit[0] * y ** 2 + fit[1] * y + fit[2]
         return x,y
 
-    def calculate_curvature_pixels(self, fit, y):
-        return (1 + (2 * fit[0] * y + fit[1]) ** 2) ** 1.5 / 2 / fit[0]
-
     def calculate_curvature_meters(self, all_y, all_x, y):
         ym_per_pix = 30 / 720  # meters per pixel in y dimension
         xm_per_pix = 3.7 / 900  # meteres per pixel in x dimension
@@ -189,24 +186,21 @@ class LineDetector():
         return bird_eye_fill, self.camera.unwarp_image(bird_eye_fill, (bird_eye.shape[1], bird_eye.shape[0]))
 
     def calculate_vehicle_offset(self, image):
-        return ((self.leftLine.current_fit[1][10] + self.rightLine.current_fit[1][10]) / 2 - image.shape[1] / 2) * 3.7 / 900
+        return ((self.leftLine.current_fit[1][10] + self.rightLine.current_fit[1][10]) / 2 - image.shape[1]/2) * 3.7 / 900
 
     def draw_information(self, image):
-        left_curvature_m = self.calculate_curvature_meters(self.leftLine.current_fit[0],self.leftLine.current_fit[1], image.shape[0])
-        right_curvature_m = self.calculate_curvature_meters(self.rightLine.current_fit[0],self.rightLine.current_fit[1], image.shape[0])
-        left_curvature = self.calculate_curvature_pixels(self.leftLine.current_fit[2], image.shape[0])
-        right_curvature = self.calculate_curvature_pixels(self.rightLine.current_fit[2], image.shape[0])
         font = cv2.FONT_HERSHEY_COMPLEX
-        curvature_string_m = 'Curvature M: Left = {0}, Right = {1}'.format(np.round(left_curvature_m, 2),
-                                                                       np.round(right_curvature_m, 2))
-        curvature_string = 'Curvature: Left = {0}, Right = {1}'.format(np.round(left_curvature, 2),
-                                                                       np.round(right_curvature, 2))
-        cv2.putText(image, curvature_string, (30, 60), font, 1, (0, 255, 0), 2)
-        cv2.putText(image, curvature_string_m, (30, 90), font, 1, (0, 255, 0), 2)
+        cv2.putText(image, 'ROC: {0}m'.format(np.round(self.leftLine.radius_of_curvature, 2)), (50, 680), font, 1, (255, 255, 255), 2)
+        cv2.putText(image, 'ROC: {0}m'.format(np.round(self.rightLine.radius_of_curvature, 2)), (980, 680), font, 1, (255, 255, 255), 2)
+
         offset = self.calculate_vehicle_offset(image)
-        offset_string = 'Lane deviation: {} cm.'.format(np.round(offset * 100, 2))
-        cv2.putText(image, offset_string, (30, 120), font, 1, (0, 255, 0), 2)
+        offset_string = 'Offset: {0}cm'.format(np.round(offset * 100, 2))
+        cv2.putText(image, offset_string, (535, 60), font, 1, (255, 255, 255), 2)
         return image
+
+    def apply_smoothing(self,new_value, old_value):
+        smoothing_factor=0.2
+        return smoothing_factor * new_value + (1 - smoothing_factor) * old_value
 
     def find_best_fit(self, binary, gradient_binary):
         # find best fit
@@ -244,27 +238,22 @@ class LineDetector():
         self.rightLine.currentLine = right
 
         if (self.has_current_fit()):
-            # apply smoothing
-            sf = 0.2
-            self.leftLine.current_fit[1] = sf * left_x + (1 - sf) * self.leftLine.current_fit[1]
-            self.leftLine.current_fit[2] = sf * left_fit + (1 - sf) * self.leftLine.current_fit[2]
-            self.rightLine.current_fit[1] = sf * right_x + (1 - sf) * self.rightLine.current_fit[1]
-            self.rightLine.current_fit[2] = sf * right_fit + (1 - sf) * self.rightLine.current_fit[2]
+            self.leftLine.current_fit[1] = self.apply_smoothing(left_x,self.leftLine.current_fit[1])
+            self.rightLine.current_fit[1] = self.apply_smoothing(right_x,self.rightLine.current_fit[1])
+            new_left_radius = self.calculate_curvature_meters(left_y,left_x, binary.shape[1])
+            self.leftLine.radius_of_curvature = self.apply_smoothing(new_left_radius, self.leftLine.radius_of_curvature)
+            new_right_radius = self.calculate_curvature_meters(right_y, right_x, binary.shape[1])
+            self.rightLine.radius_of_curvature = self.apply_smoothing(new_right_radius, self.rightLine.radius_of_curvature)
         else:
             self.leftLine.current_fit = [left_y, left_x, left_fit]
+            self.leftLine.radius_of_curvature = self.calculate_curvature_meters(left_y,left_x, binary.shape[1])
             self.rightLine.current_fit = [right_y, right_x, right_fit]
+            self.rightLine.radius_of_curvature = self.calculate_curvature_meters(right_y, right_x, binary.shape[1])
 
     def process_image(self,img):
         [undistorted, bird_eye, binary, gradient_binary] = self.camera.process_image(img)
 
         self.find_best_fit(binary, gradient_binary)
-
-        # if(not self.are_lines_parallel(left_x, right_x) and left_x is not None and right_x is not None):
-        #     message = "Lines not parallel bottom {0} middle {1} top {2}".format(right_x[10] - left_x[10] - 900,
-        #                                                                     right_x[5] - left_x[5] - 900,
-        #                                                                     right_x[0] - left_x[0] - 900)
-        #     print(message)
-
 
         bird_eye_lines, unwarped = self.draw_area_between_lines(bird_eye)
 

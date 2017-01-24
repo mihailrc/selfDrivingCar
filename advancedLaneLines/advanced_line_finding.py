@@ -18,10 +18,10 @@ matplotlib.use('TkAgg')
 
 images = ['test_images/test4.jpg']
 
-lineDetector = line_detector.LineDetector()
 
 def process_images(images):
     for image in images:
+        lineDetector = line_detector.LineDetector()
         print(image)
         img = mpimg.imread(image)
         [undistorted, bird_eye, binary, gradient_binrary] = lineDetector.camera.process_image(img)
@@ -45,13 +45,14 @@ except:
     os.mkdir(output_movies_dir)
 
 def processVideo(filename):
+    lineDetector = line_detector.LineDetector()
     clip1 = VideoFileClip(input_movies_dir + filename)
     # clip1.save_frame("test_images/test12.jpg", t='00:00:42.12')
     output_clip = clip1.fl_image(lineDetector.process_image)
     output_clip.write_videofile(output_movies_dir + filename, audio=False)
 
-# processVideo("project_video.mp4")
-process_images(images)
+processVideo("project_video.mp4")
+# process_images(images)
 
 
 
