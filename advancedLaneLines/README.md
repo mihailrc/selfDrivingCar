@@ -88,12 +88,12 @@ The set of transformation applied to an image is presented below.
   </tr>
 </table>
 
-### Perspective transform
+#### Perspective transform
 The goal of the perspective transform is to provide a bird eye view of the lines so they appear parallel in the transformed image. Transforming back and forth between regular and bird-eye view is done using two transformation matrices.
 
 The method that calculates these matrices is called get_transformation_matrices() and can be found [here](./sdc/camera.py). This method uses OpenCV's getPerspectiveTransform() and manually provided source and destination points. An example of the bird-eye image was presented above and as expected shows the parallel lanes.
 
-### Creating the binary image
+#### Creating the binary image
 The binary image is created using a combination of color gradient thresholding. Color thresholding first transforms the image from RGB to HLS space then applies a threshold on S channel.
 
 Gradient thresholding first transform the image into the gray scale the calculates Sobel gradient along x axis because this gradient will emphasize vertical lines.
@@ -102,7 +102,7 @@ The combined binary puts the two binaries together. Examples of these binary ima
 
 The code that creates binary images can be found [here](./sdc/camera.py)
 
-### Line identification
+#### Line identification
 There are two methods for extracting line pixels. The first method can be applied for the first frame or when the lines have to be identified from scratch. The second method relies on lines identified in the previous frame.
 
 ##### Identifying lines for first frame
@@ -153,15 +153,24 @@ Extracting line pixels does not mean that we identified the correct lines. The v
 
 To avoid jitter we are using a smoothing factor before refreshing current fit data.
 
-### Radius of curvature and vehicle position
+#### Radius of curvature and vehicle position
 The radius of curvature is calculated using the polynomial coefficients from the current fit and the method presented in class. The method that performs this calculation is calculate_curvature_meters() and can be found [here](./sdc/line_detector.py).
 
 Vehicle position is determined by calculating the difference between the middle of the image and the average value of the x coordinates for the left and right lines at the bottom of the image. The method that calculates vehicle position is calculate_vehicle_offset()
 
-#### Pipeline (video)
+### Pipeline (video)
 We used moviepy to apply the image transformation to the project video. The resulting video can be found [here](https://youtu.be/OV1l5xFHiwQ)
 
-#### Discussion
-Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
+### Discussion
+Making this work included lots of experimentation and tweaking of parameters. These parameters were tweaked using test images from the problem areas in the project video. There were three areas that required experimentation/tweaking:
+ - First area of experimentation involved generating good binary images. This meant experimenting with color thresholding, color spaces, and various gradients. We found out that in some cases gradient binary image works better that the combined binary.
+ - Second area of experimentation involved extracting left and right lanes from binary images. Instead of using a sliding window technique we decided to use a simpler approach based on moving average. This turned out to work reasonably well.
+ - Third area of experimentation involved determining criteria for what constitutes a good fit.
 
-Discussion includes some consideration of problems/issues faced, what could be improved about their algorithm/pipeline, and what hypothetical cases would cause their pipeline to fail.
+Existing approach performs well on the project video but does not perform that well on the challenge videos. The performance can be improved by focusing on the three areas described above.
+
+We can use more techniques for generating binary images like using the magnitude of the gradient, calculating the gradient using a different channel (S channel may work well). Also we can combine these techniques different ways depending on things like lighting conditions, image quality etc. We already used something similar for handling images with a lot of shade.
+
+Extracting lines from binary images may benefit from a more sophisticated approach as well. For example we can split the image into multiple horizontal slices and exclude the slices that are of poor quality.
+
+These suggestions involve tweaking lots of parameters and using a relatively slow approach that requires handling problem areas one by one. A different approach that may generalize better is to try to use CNN's. That would require no tweaking but it also means we loose intuition about what works and what does not.
