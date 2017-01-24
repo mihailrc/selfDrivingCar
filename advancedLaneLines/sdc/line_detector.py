@@ -134,9 +134,7 @@ class LineDetector():
     def calculate_curvature_meters(self, all_y, all_x, y):
         ym_per_pix = 30 / 720  # meters per pixel in y dimension
         xm_per_pix = 3.7 / 900  # meteres per pixel in x dimension
-        # points = np.nonzero(line)
-        # all_x = points[0]
-        # all_y = points[1]
+
         if(all_x.size>0):
             fit = np.polyfit(all_y*ym_per_pix, all_x*xm_per_pix, 2)
             curvature = ((1 + (2 * fit[0] * y + fit[1]) ** 2) ** 1.5) \

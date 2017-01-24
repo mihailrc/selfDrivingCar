@@ -91,16 +91,16 @@ The set of transformation applied to an image is presented below.
 #### Perspective transform
 The goal of the perspective transform is to provide a bird eye view of the lines so they appear parallel in the transformed image. Transforming back and forth between regular and bird-eye view is done using two transformation matrices.
 
-The method that calculates these matrices is called get_transformation_matrices() and can be found [here](./sdc/camera.py). This method uses OpenCV's getPerspectiveTransform() and manually provided source and destination points. An example of the bird-eye image was presented above and as expected shows the parallel lanes.
+The method that calculates these matrices is called get_transformation_matrices() and can be found [here](./sdc/camera.py). This method uses OpenCV's getPerspectiveTransform() and manually provided source and destination points. An example of the bird-eye image was presented above and as expected shows the lanes as parallel.
 
 #### Creating the binary image
-The binary image is created using a combination of color gradient thresholding. Color thresholding first transforms the image from RGB to HLS space then applies a threshold on S channel.
+The binary image is created using a combination of color and gradient thresholding. Color thresholding first transforms the image from RGB to HLS space then applies a threshold on S channel.
 
 Gradient thresholding first transform the image into the gray scale the calculates Sobel gradient along x axis because this gradient will emphasize vertical lines.
 
 The combined binary puts the two binaries together. Examples of these binary images can be found above.
 
-The code that creates binary images can be found [here](./sdc/camera.py)
+The methods that creates binary images are called color_binary(), gradient_binary() and combined_binary() and can be found [here](./sdc/camera.py)
 
 #### Line identification
 There are two methods for extracting line pixels. The first method can be applied for the first frame or when the lines have to be identified from scratch. The second method relies on lines identified in the previous frame.
@@ -149,7 +149,7 @@ This method splits the image into top and bottom half, then retains all pixels i
 Once the left and right line pixels are identified we approximate these points with a second degree polynomial using numpy's polyfit()
 
 ##### Finding best fit
-Extracting line pixels does not mean that we identified the correct lines. The verify the lines validity we check that left and right lines are roughly parallel and we also check that the new lines do not deviate too much from the previous lines. The method that finds the best fit is surprisingly called find_best_fit() and can be found here. This methods first attempts to use the fast_extract() if possible. It this fails it tries to use the same method used for identifying lines for the first frame. If this fails as well then use the last known fit if it is recent enough(e.g. less than 5 frames ago).
+Extracting line pixels does not mean that we identified the correct lines. The verify the lines validity we check that left and right lines are roughly parallel and we also check that the new lines do not deviate too much from the previous lines. The method that finds the best fit is surprisingly called find_best_fit() and can be found [here](./sdc/line_detector.py). This methods first attempts to use the fast_extract() if possible. It this fails it tries to use the same method used for identifying lines for the first frame. If this fails as well then use the last known fit if it is recent enough(e.g. less than 5 frames ago).
 
 To avoid jitter we are using a smoothing factor before refreshing current fit data.
 

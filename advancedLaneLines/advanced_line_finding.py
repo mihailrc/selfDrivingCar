@@ -17,7 +17,7 @@ matplotlib.use('TkAgg')
 #           'test_images/test6.jpg']
 
 images = ['test_images/test4.jpg']
-
+#
 
 def process_images(images):
     for image in images:
@@ -33,6 +33,7 @@ def process_images(images):
 
         print(left.shape, right.shape)
         processed = lineDetector.process_image(img)
+        # mpimg.imsave("./output_images/result.jpg", processed)
         utils.plot_images([bird_eye, binary, lineDetector.leftLine.currentLine, lineDetector.rightLine.currentLine], 2, 2, ['Brdie', 'Binary', 'Left', 'Right'])
         utils.plot_images([processed], 1,1,['Result'])
 
@@ -51,8 +52,8 @@ def processVideo(filename):
     output_clip = clip1.fl_image(lineDetector.process_image)
     output_clip.write_videofile(output_movies_dir + filename, audio=False)
 
-processVideo("project_video.mp4")
-# process_images(images)
+# processVideo("project_video.mp4")
+process_images(images)
 
 
 
