@@ -203,9 +203,9 @@ class LineDetector():
 
     def extract_lines(self, binary):
         max_width = 150
-        mov_filtsize = 20
+        filter_size = 20
         mean_lane = np.mean(binary[:, :], axis=0)
-        mean_lane = moving_average(mean_lane, mov_filtsize)
+        mean_lane = moving_average(mean_lane, filter_size)
 
         # plt.plot(mean_lane > .075)
         # plt.plot(mean_lane)
@@ -258,6 +258,46 @@ class LineDetector():
         if(not valid_lines):
             left = None
             right = None
+
+        return left, right
+
+        # extract lines from combined binary. If that fails try gradient binary only. If that still fails return binary
+
+    def extract_best_lines(self, binary, gradient_binary):
+        left, right = self.extract_lines(binary)
+
+        if (left is None):
+            left, right = self.extract_lines(gradient_binary)
+
+        if (left is None):
+            left, right = binary, binary
+
+        return left, right
+
+    #uses existing fit to identify line pixels
+    def fast_extract(self, binary):
+        img_size = binary.shape
+        width = 75
+
+        #split the image into top and bottom section
+        left = np.copy(binary)
+        #get x position in the middle of the top section
+        left_top_x = self.leftLine.current_fit[1][3]
+        #get x position in the middle of the bottom section
+        left_bottom_x = self.leftLine.current_fit[1][7]
+        #retain pixels to left and right of left_top_x and left_bottom_x
+        left[:img_size[0] / 2, 0:left_top_x - width] = 0
+        left[:img_size[0] / 2, left_top_x + width:] = 0
+        left[img_size[0] / 2:, 0:left_bottom_x - width] = 0
+        left[img_size[0] / 2:, left_bottom_x + width:] = 0
+
+        right = np.copy(binary)
+        right_top_x = self.rightLine.current_fit[1][3]
+        right_bottom_x = self.rightLine.current_fit[1][7]
+        right[:img_size[0] / 2, 0:right_top_x - width] = 0
+        right[:img_size[0] / 2, right_top_x + width:] = 0
+        right[img_size[0] / 2:, 0:right_bottom_x - width] = 0
+        right[img_size[0] / 2:, right_bottom_x + width:] = 0
 
         return left, right
 
@@ -316,42 +356,8 @@ class LineDetector():
                and self.has_small_deviation(right_x, self.rightLine.current_fit[1]) \
                and self.are_lines_parallel(left_x, right_x)
 
-    # extract lines from combined binary. If that fails try gradient binary only. If that still fails return binary
-    def extract_best_lines(self, binary, gradient_binary):
-        left, right = self.extract_lines(binary)
-
-        if (left is None):
-            left, right = self.extract_lines(gradient_binary)
-
-        if (left is None):
-            left, right = binary, binary
-
-        return left, right
-
     def has_current_fit(self):
         return (self.leftLine.current_fit[0] is not None) and (self.rightLine.current_fit[0] is not None)
-
-    def fast_extract(self, binary):
-        img_size = binary.shape
-        width = 75
-
-        left = np.copy(binary)
-        left_top_x = self.leftLine.current_fit[1][3]
-        left_bottom_x = self.leftLine.current_fit[1][7]
-        left[:img_size[0]/2, 0:left_top_x-width] = 0
-        left[:img_size[0] / 2, left_top_x + width:] = 0
-        left[img_size[0] / 2:, 0:left_bottom_x - width] = 0
-        left[img_size[0] / 2:, left_bottom_x + width:] = 0
-
-        right = np.copy(binary)
-        right_top_x = self.rightLine.current_fit[1][3]
-        right_bottom_x = self.rightLine.current_fit[1][7]
-        right[:img_size[0] / 2, 0:right_top_x - width] = 0
-        right[:img_size[0] / 2, right_top_x + width:] = 0
-        right[img_size[0] / 2:, 0:right_bottom_x - width] = 0
-        right[img_size[0] / 2:, right_bottom_x + width:] = 0
-
-        return left, right
 
     #takes the bird eye view, draws lines on it then performes a perspective transform
     def draw_area_between_lines(self, bird_eye):
@@ -371,6 +377,9 @@ class LineDetector():
 
         return bird_eye_fill, self.camera.unwarp_image(bird_eye_fill, (bird_eye.shape[1], bird_eye.shape[0]))
 
+    def calculate_vehicle_offset(self, image):
+        return ((self.leftLine.current_fit[1][10] + self.rightLine.current_fit[1][10]) / 2 - image.shape[1] / 2) * 3.7 / 900
+
     def draw_information(self, image):
         left_curvature_m = self.calculate_curvature_meters(self.leftLine.current_fit[0],self.leftLine.current_fit[1], image.shape[0])
         right_curvature_m = self.calculate_curvature_meters(self.rightLine.current_fit[0],self.rightLine.current_fit[1], image.shape[0])
@@ -383,7 +392,7 @@ class LineDetector():
                                                                        np.round(right_curvature, 2))
         cv2.putText(image, curvature_string, (30, 60), font, 1, (0, 255, 0), 2)
         cv2.putText(image, curvature_string_m, (30, 90), font, 1, (0, 255, 0), 2)
-        offset = ((self.leftLine.current_fit[1][10] + self.rightLine.current_fit[1][10]) / 2 - image.shape[1] / 2) * 3.7 / 900
+        offset = self.calculate_vehicle_offset(image)
         offset_string = 'Lane deviation: {} cm.'.format(np.round(offset * 100, 2))
         cv2.putText(image, offset_string, (30, 120), font, 1, (0, 255, 0), 2)
         return image

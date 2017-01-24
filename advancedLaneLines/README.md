@@ -25,16 +25,16 @@ An example of an original chessboard image and the corresponding distortion corr
 ### Pipeline (test images)
 
 The image processing pipeline consists of the following steps:
-1. Apply gaussian blur to original image to reduce noise
-2. Un-distort the resulting image using the camera calibration coefficients calculated previously.
-3. Apply perspective transform to create a bird-eye view of the image.
-4. Create a binary image by applying color and/or gradient thresholding
-5. Create a binary image for each of the lines
-6. Apply polynomial fit to each binary line images
-7. Draw the lines on the bird-eye view
-8. Apply inverse perspective transform to convert the image from bird-eye view to regular view
-9. Overlap image with lines to undistorted image
-10. Calculate Curvature and vehicle position with respect to center and render them on the image
+* Apply gaussian blur to original image to reduce noise
+* Un-distort the resulting image using the camera calibration coefficients calculated previously.
+* Apply perspective transform to create a bird-eye view of the image.
+* Create a binary image by applying color and/or gradient thresholding
+* Create a binary image for each of the lines
+* Apply polynomial fit to each binary line images
+* Draw the lines on the bird-eye view
+* Apply inverse perspective transform to convert the image from bird-eye view to regular view
+* Overlap image with lines to undistorted image
+* Calculate Curvature and vehicle position with respect to center and render them on the image
 
 The set of transformation applied to an image is presented below.
 
@@ -95,20 +95,41 @@ The goal of the perspective transform is to provide a bird eye view of the lines
 The method that calculates these matrices is called get_transformation_matrices() and can be found in Camera class. This method uses OpenCV's getPerspectiveTransform() and manually provided source and destination points. An example of the bird-eye image was presented above and as expected shows the parallel lanes.
 
 ### Creating the binary image
-The binary image is created using a combination of color gradient thresholding. Color thresholding first transforms the image from RGB to HLS space the applies a threshold on S channel. 
+The binary image is created using a combination of color gradient thresholding. Color thresholding first transforms the image from RGB to HLS space then applies a threshold on S channel.
 
 Gradient thresholding first transform the image into the gray scale the calculates Sobel gradient along x axis because this gradient will emphasize vertical lines.
 
 The combined binary puts the two binaries together. Examples of these binary images can be found above.
 
 ### Line identification
-Describe
+There are two methods for extracting line pixels. The first method can be applied for the first frame or when the lines have to be identified from scratch. The second method relies on lines identified in the previous frame.
+
+##### Identifying lines for first frame
+The first step is calculating the moving average for pixel intensities across x axis for a binary image. To identify pixels from the left lane we determine the x coordinates that exceed a certain threshold and we retain all pixels on the left half of the image that are between these coordinates. We use a similar approach for the right lane. Although this approach is much simpler than the sliding window approach it performs surprisingly well. This idea was originally presented by Vivek Yadav in this paper.
+
+TODO show histogram
+
+In some cases we could not identify small enough regions that meet these criteria. In this case we ended up using the gradient binary versus the combined binary. This turned out to work well especially for images with a lot of shade as shown below.
+
+The methods that extract the line pixels are extract_lines() and extract_best_lines() and can be found here.
+
+##### Identifying lines using lines from previous frame
+This method splits the image into top and bottom half, then retains all pixels in a band around x coordinates for both left and right lines. The method that extract the lines is fast_extract() and can be found here.
+
+Once the left and right line pixels are identified we approximate these points with a second degree polynomial using numpy's polyfit()
+
+##### Finding best fit
+Extracting line pixels does not mean that we identified the correct lines. The verify the lines validity we check that left and right lines are roughly parallel and we also check that the new lines do not deviate too much from the previous lines. The method that finds the best fit is surprisingly called find_best_fit() and can be found here. This methods first attempts to use the fast_extract() if possible. It this fails it tries to use the same method used for identifying lines for the first frame. If this fails as well then use the last known fit if it is recent enough(e.g. less than 5 frames ago).
+
+To avoid jitter we are using a smoothing factor before refreshing current fit data.
 
 ### Radius of curvature and vehicle position
-Describe
+The radius of curvature is calculated using the polynomial coefficients from the current fit and the method presented in class. The method that performs this calculation is calculate_curvature_meters() and can be found here.
+
+Vehicle position is determined by calculating the difference between the middle of the image and the average value of the x coordinates for the left and right lines at the bottom of the image. The method that calculates vehicle position is calculate_vehicle_offset()
 
 #### Pipeline (video)
- * Link to video
+We used moviepy to apply the image transformation to the project video. The resulting video can be found here.
 
 #### Discussion
 Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
