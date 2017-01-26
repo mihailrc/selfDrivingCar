@@ -21,3 +21,10 @@ The goal of the project is to use Computer Vision techniques to identity lane li
 
    - [Solution](behavioralCloning)
    - [Udacity review](behavioralCloning/Udacity_Review.pdf)
+
+### Advanced Lane Finding
+
+ The goal of the project is to use advanced Computer Vision techniques to identify lane lines on the road. The solution transforms the images into a bird eye-view then applies Sobel gradient and color thresholding to create a binary image. The binary image is further processed to identify lane pixels that are fitted to a second degree polynomial. The calculated line is rendered back to the original image.
+
+  - [Solution](advancedLaneLines)
+  - [Udacity review](advancedLaneLines/Udacity_Review.pdf)
