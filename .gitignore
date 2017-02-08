@@ -102,3 +102,9 @@ ENV/
 **/more_data
 **/*.app
 **/checkpoints
+
+# exclude vehicle detection directories
+**/output_videos
+**/vehicles
+**/non-vehicles
+**/models
