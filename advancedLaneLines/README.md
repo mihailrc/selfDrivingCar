@@ -159,7 +159,9 @@ The radius of curvature is calculated using the polynomial coefficients from the
 Vehicle position is determined by calculating the difference between the middle of the image and the average value of the x coordinates for the left and right lines at the bottom of the image. The method that calculates vehicle position is calculate_vehicle_offset()
 
 ### Pipeline (video)
-We used moviepy to apply the image transformation to the project video. The resulting video can be found [here](https://youtu.be/OV1l5xFHiwQ)
+We used moviepy to apply the image transformation to the project video. The resulting video can be below
+
+[![Project video](https://img.youtube.com/vi/OV1l5xFHiwQ/0.jpg)](https://youtu.be/OV1l5xFHiwQ)
 
 ### Discussion
 Making this work included lots of experimentation and tweaking of parameters. These parameters were tweaked using test images from the problem areas in the project video. There were three areas that required experimentation/tweaking:

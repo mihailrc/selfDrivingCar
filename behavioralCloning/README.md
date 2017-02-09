@@ -106,11 +106,11 @@ The model included in this project was trained on 33 epochs using 10,016 images 
 
 The model succesfully completed Track 1 as seen in the recoding below.
 
-[Track 1 Video](https://youtu.be/W5o-G6e78Zk)
+[![Track 1 video](https://img.youtube.com/vi/W5o-G6e78Zk/0.jpg)](https://youtu.be/W5o-G6e78Zk)
 
 The model generalizes well and completes Track 2 successfully although it was never trained on that track.
 
-[Track 2 Video](https://youtu.be/vXzgXb1rkjw)
+[![Track 2 video](https://img.youtube.com/vi/vXzgXb1rkjw/0.jpg)](https://youtu.be/vXzgXb1rkjw)
 
 #### Training and Validation split
 

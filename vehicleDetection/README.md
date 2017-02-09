@@ -59,8 +59,8 @@ The following set of images shows how this works.
 
 When processing the video the [`ClassTracker`](./sdc/car_tracker.py) class keeps track of the last 15 frames and it also maintains a list of previously identified cars. Potential car boxes are added if they either pass the probability threshold used for single image processing or if the center of the box is close to a previously identified car. Since we are also tracking multiple frames in a video we also increased the heatmap threshold to 5. This ensures a candidate car is identified in multiple frames before being considered a car.
 
-#### Final video output
-[![Project video](https://youtu.be/kZViHcQgGYU)](https://youtu.be/kZViHcQgGYU)
+#### Final Video Output
+[![Project video](https://img.youtube.com/vi/kZViHcQgGYU/0.jpg)](https://youtu.be/kZViHcQgGYU)
 
 ### Discussion
 This was an interesting project that required experimenting with various parameters to make it work.
