@@ -105,13 +105,6 @@ def heatmap_image(heatmap, multiplication_factor = 20):
     ht[:, :, 0] = heatmap[:, :, 0]
     return ht
 
-# Load the classifier model
-# clf = joblib.load('./../models/classifier.pkl')
-# cal = joblib.load('./../models/calibrated.pkl')
-
-# Load the standard scalar model
-# X_scaler = joblib.load('./../models/scaler.pkl')
-
 cal = pickle.load(open("./../models/classifier2.pkl", "rb"))
 X_scaler = pickle.load(open("./../models/scaler2.pkl", "rb"))
 
@@ -143,7 +136,7 @@ def process_video(path, output_video):
     output_clip.write_videofile(output_video, audio=False)
 
 
-process_images("./../test_images/test6.jpg")
+# process_images("./../test_images/test6.jpg")
 #
-# process_video("./../project_video.mp4","./../project_video_diag.mp4")
+process_video("./../project_video.mp4","./../output_videos/project_video_diag.mp4")
 
