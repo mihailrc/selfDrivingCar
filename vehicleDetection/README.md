@@ -1,33 +1,80 @@
-# Vehicle Detection
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+## Vehicle Detection
+
+The goal of this project is to write a software pipeline to identify vehicles in a video
+
+### Histogram of Oriented Gradients (HOG)
+
+#### Extracting Image Features
+
+The code that extracts image features is in feature_extractor.py. For this project I used two types of features: HOG and color histograms. I experimented with different color spaces and HOG parameters and I chose the parameters that had a good test accuracy and also performed well on test images. For color spaces both YUV and YCrCb performed well with YCrCb having a slight edge. For the HOG parameters the values provided in the lecture notes, orientations=9, pixels_per_cell=8 and cells_per_block=2 performed well.
+
+The 3*32 features from color histogram were concatenated with 1764 HOG features from each channel to produce a 5388 feature vector.
+
+#### Model Training
+
+For training we used the 8792 car images and 9666 non-car images provided with the project. The training data was split into training and testing sets using a 80/20 split. The features were next scaled using sklearn StandardScaler. The model was trained using LinearSVC with default parameters. In order to be able to calculate prediction probabilities LinerSVC was wrapped by CalibratedClassifierCV.
+
+The model had a 1.0 Training Accuracy and 0.993 Testing Accuracy. After training the model was saved in pickle files that were later used when processing the video.
+
+The code that trains the model is in train_model.py
+
+### Sliding Window Search
+
+#### Sliding Window implementation
+
+After experimenting with several window sizes (64x64, 96x64, 128x128, 192x128, 256x128) we decided to only used 128x128 and 64x64 windows with an 0.8 overlap based on the classification performance on test images.
+
+The following image shows 64x64 windows in green and 128x128 windows in blue.
+<img src="output_images/sliding_window.jpg" width="640" height="360">
+
+The method that implements the sliding window technique is slide_window() in feature_extractor.py. This method is invoked by get_all_sliding_windows() in vehicle_detection.py
+
+#### Image Pipeline
+The sliding windows technique was used to identify image sections that contain cars. In order to reduce false positives we only retained windows that had a prediction probability higher than a threshold (defaults to 0.8). These windows were used to create a heatmap that was thresholded again to further eliminate false positives. We then used scipy.ndimage.measurements.label to identify clusters in the heatmap that were labeled as vehicles.
+
+The code that builds the heatmap and applies these thresholding techniques are in car_tracker.py
+
+The following set of images shows how this works.
+
+<table>
+  <tr>
+    <th>Original</th>
+    <th>Car Windows</th>
+  <tr>
+  <tr>
+   <td><img src="output_images/original.jpg"></td>
+   <td><img src="output_images/car_boxes.jpg"></td>
+  </tr>
+  <tr>
+    <th>Heatmap</th>
+    <th>Potential Cars</th>
+  <tr>
+  <tr>
+   <td><img src="output_images/heatmap.jpg"></td>
+   <td><img src="output_images/potential_cars.jpg"></td>
+  </tr>
+</table>
+
+### Video Implementation
+
+When processing the video the ClassTracker class keeps track of the last 15 frames and it also maintains a list of previously identified cars. Potential car boxes are added if they either pass the probability threshold used for single image processing or if the center of the box is close to a previously identified car. Since we are also tracking multiple frames in a video we also increased the heatmap threshold to 5. This ensures a candidate car is identified in multiple frames before being considered a car.
+
+#### Final video output
+[![Project video link](todo)](todo)
+
+### Discussion
+This was an interesting project that required experimenting with various parameters to make it work.
+
+If using HOG there are several opportunities for improving performance.  
+- calculate HOG only once for the entire section covered by each sliding window size and then to extract only the needed array elements as we slide windows over the sections.
+- experiment with CV2 HOG extractor and see if it provides better performance.
+- use more sophisticated techniques to identify blobs in the heat much such as watershed
+
+Since the final results require so much parameter tuning I am not convinced that this is the most robust approach for vehicle identification. I believe using something like U-Net or YOLO can provide better results and this is what I intend to experiment with next.
 
 
-In this project, your goal is to write a software pipeline to detect vehicles in a video, but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/rykeenan/CarND-Vehicle-Detection/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
 
-Creating a great writeup:
----
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
 
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
+Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 
-You can submit your writeup in markdown or use another method and submit a pdf instead.
-
-The Project
----
-
-The goals / steps of this project are the following:
-
-* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector. 
-* Note: for those first two steps don't forget to normalize your features and randomize a selection for training and testing.
-* Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
-* Run your pipeline on a video stream and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
-* Estimate a bounding box for vehicles detected.
-
-Here are links to the labeled data for [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) examples to train your classifier.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html), the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/), and examples extracted from the project video itself.   You are welcome and encouraged to take advantage of the recently released [Udacity labeled dataset](https://github.com/udacity/self-driving-car/tree/master/annotations) to augment your training data.  
-
-Some example images for testing your pipeline on single frames are located in the `test_images` folder.  To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `ouput_images`, and include them in your writeup for the project by describing what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
-
-**As an optional challenge** Once you have a working pipeline for vehicle detection, add in your lane-finding algorithm from the last project to do simultaneous lane-finding and vehicle detection!
-
-**If you're feeling ambitious** (also totally optional though), don't stop there!  We encourage you to go out and take video of your own, and show us how you would implement this project on a new video!
+Discussion includes some consideration of problems/issues faced, what could be improved about their algorithm/pipeline, and what hypothetical cases would cause their pipeline to fail.

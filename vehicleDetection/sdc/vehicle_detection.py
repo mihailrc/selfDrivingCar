@@ -51,14 +51,13 @@ def get_all_sliding_windows(img, overlap=0.8):
     #                        xy_window=(192, 192), xy_overlap=(overlap, overlap))
     windows_128 = slide_window(img, x_start_stop=[None, None], y_start_stop=[380, 650],
                            xy_window=(128, 128), xy_overlap=(overlap, overlap))
-    windows_64 = slide_window(img, x_start_stop=[280, 1000], y_start_stop=[380, 520],
+    windows_64 = slide_window(img, x_start_stop=[None, None], y_start_stop=[380, 520],
                            xy_window=(64, 64), xy_overlap=(overlap, overlap))
     # windows_64 = slide_window(img, x_start_stop=[None, None], y_start_stop=[380, 520],
     #                           xy_window=(64, 64), xy_overlap=(overlap, overlap))
     # cp = draw_boxes(img, windows_256, (255,0,0))
     # cp = draw_boxes(img, windows_128, (0,0,255))
     # cp = draw_boxes(cp, windows_64, (0,255,0))
-    #
     # plot_images([cp], 1,1, ['Boxes'])
 
     return windows_128 + windows_64
@@ -78,23 +77,33 @@ def process_image(clasifier, scaler,car_tracker, img):
     possible_cars = find_car_boxes(img, windows, clasifier, scaler)
 
     car_tracker.add_possible_cars_for_frame(possible_cars)
-    return car_tracker.draw_heatmap_boxes(img)
+    # return car_tracker.draw_heatmap_boxes(img)
 
-    # window_img = draw_boxes(img, car_tracker.all_possible_car_boxes(),color=(0,255,0),thick=2)
+    window_img = draw_boxes(img, car_tracker.all_possible_car_boxes(),color=(0,255,0),thick=2)
     # if(len(car_tracker.all_possible_cars) > 0 and len(car_tracker.all_possible_cars[0])>0):
     #     window_img = draw_boxes(window_img, car_tracker.first_frame_boxes(), (255,0,0),2)
-    # img1 =  car_tracker.draw_heatmap_boxes(window_img)
-    # return diagnosis_screen(img1, car_tracker.build_heatmap(car_tracker.heatmap_threshold))
+    img1 =  car_tracker.draw_heatmap_boxes(img)
+
+    # mpimg.imsave('../output_images/original.jpg', img)
+    # mpimg.imsave('../output_images/car_boxes.jpg', window_img)
+    # mpimg.imsave('../output_images/heatmap.jpg', car_tracker.build_heatmap(car_tracker.heatmap_threshold))
+    # mpimg.imsave('../output_images/potential_cars.jpg', car_tracker.draw_heatmap_boxes(img1))
+
+    return diagnosis_screen(img1, car_tracker.build_heatmap(car_tracker.heatmap_threshold))
 
 def diagnosis_screen(processed_image, heatmap, multiplication_factor = 20):
     diagScreen = np.zeros((1440, 1280, 3), dtype=np.uint8)
     diagScreen[0:720, 0:1280] = processed_image
-    ht = np.zeros((heatmap.shape[0], heatmap.shape[1],3), dtype=np.uint8)
-    heatmap = heatmap * multiplication_factor
-    heatmap[heatmap>255]=255
-    ht[:,:,0] = heatmap[:,:,0]
+    ht = heatmap_image(heatmap, multiplication_factor)
     diagScreen[720:1440, 0:1280] = cv2.resize(ht, (1280, 720), interpolation=cv2.INTER_AREA)
     return diagScreen
+
+def heatmap_image(heatmap, multiplication_factor = 20):
+    ht = np.zeros((heatmap.shape[0], heatmap.shape[1], 3), dtype=np.uint8)
+    heatmap = heatmap * multiplication_factor
+    heatmap[heatmap > 255] = 255
+    ht[:, :, 0] = heatmap[:, :, 0]
+    return ht
 
 # Load the classifier model
 # clf = joblib.load('./../models/classifier.pkl')
@@ -124,8 +133,8 @@ def process_images(path):
     plt.show()
 
 def process_video(path, output_video):
-    clip = VideoFileClip(path)
-    # clip = VideoFileClip(path).subclip(21, 26)
+    # clip = VideoFileClip(path)
+    clip = VideoFileClip(path).subclip(34, 38)
     # clip.save_frame("./../test_images/test9.jpg", t='00:00:50.36')
 
     ct = CarTracker(15, (720, 1280, 3), heatmap_threshold=5)
@@ -134,7 +143,7 @@ def process_video(path, output_video):
     output_clip.write_videofile(output_video, audio=False)
 
 
-# process_images("./../test_images/test9.jpg")
-
-process_video("./../project_video.mp4","./../project_video_final.mp4")
+process_images("./../test_images/test6.jpg")
+#
+# process_video("./../project_video.mp4","./../project_video_diag.mp4")
 

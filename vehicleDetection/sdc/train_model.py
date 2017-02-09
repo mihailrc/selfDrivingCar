@@ -69,8 +69,8 @@ print("Prob {}".format(prob))
 
 # Save model & scaler
 print("Saving models...")
-pickle.dump(clf, open('./../models/classifier2.pkl', "wb"))
-pickle.dump(X_scaler, open('./../models/scaler2.pkl', "wb"))
+pickle.dump(clf, open('./../models/classifier3.pkl', "wb"))
+pickle.dump(X_scaler, open('./../models/scaler3.pkl', "wb"))
 
 # joblib.dump(svc, './../models/classifier2.pkl')
 # joblib.dump(clf, './../models/calibrated2.pkl')
