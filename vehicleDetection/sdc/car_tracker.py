@@ -19,12 +19,14 @@ class CarTracker:
         self.all_possible_cars.append(possible_cars)
         self.all_possible_cars[1:self.number_of_tracked_frames] = keep
 
-    def first_frame_boxes(self):
-        boxes = []
-        for pc in self.all_possible_cars[0]:
-            boxes.append(pc[0])
-        return boxes
+    # def first_frame_boxes(self):
+    #     boxes = []
+    #     for pc in self.all_possible_cars[0]:
+    #         boxes.append(pc[0])
+    #     return boxes
 
+    #a box is considered a possible car box if either exceeds the confidence threshold
+    # or is close to to an existing box
     def all_possible_car_boxes(self):
         car_boxes = []
         for possible_cars in self.all_possible_cars:
@@ -44,8 +46,8 @@ class CarTracker:
         heatmap[heatmap < heatmap_threshold] = 0
         return heatmap
 
-    def find_heatmap_boxes(self, heatmap_threshold):
-        heatmap = self.build_heatmap(heatmap_threshold)
+    def get_heatmap_boxes(self):
+        heatmap = self.build_heatmap(self.heatmap_threshold)
         labels = label(heatmap)
         boxes = []
         # Iterate through all detected cars
@@ -60,25 +62,9 @@ class CarTracker:
             boxes.append(bbox)
         return boxes
 
-    def get_heatmap_boxes(self):
-        return self.find_heatmap_boxes(self.heatmap_threshold)
-        # currentBoxes =  self.find_heatmap_boxes(self.heatmap_threshold)
-        # previousBoxes = self.previous_car_boxes
-        # lowThresholdCandidates = self.find_heatmap_boxes(1)
-        # add back boxes that pass a lower threshold and are close to one of previous boxes
-        # for box in lowThresholdCandidates:
-        #     if(self.box_close_to_one_of_boxes(box, previousBoxes) and not self.box_close_to_one_of_boxes(box, currentBoxes)):
-        #         currentBoxes.append(box)
-        # return currentBoxes
-
 
     def draw_heatmap_boxes(self, img):
         boxes = self.get_heatmap_boxes()
-        # print('All boxes {}'.format(self.all_possible_cars))
-        # print('All possible cars {}'.format(self.all_possible_car_boxes()))
-        # print('Heatmap boxes:{0}'.format(boxes))
-        # for box in boxes:
-        #     print("center {0}".format(self.get_box_center(box)))
         img_copy = np.copy(img)
         for box in boxes:
             cv2.rectangle(img_copy, box[0], box[1], (0, 0, 255), 4)
@@ -102,12 +88,3 @@ class CarTracker:
                 return True
         return False
 
-# ct = CarTracker(2)
-# print(ct.all_possible_cars, len(ct.all_possible_cars))
-# ct.add_possible_cars_for_frame([((1,1),(1,1))])
-# cb = ct.all_possible_car_boxes()
-# print(ct.all_possible_cars, len(ct.all_possible_cars), len(cb))
-# ct.add_possible_cars_for_frame([((2,2),(2,2)),((2,2),(2,2))])
-# print(ct.all_possible_cars, len(ct.all_possible_cars), len(ct.all_possible_car_boxes()))
-# ct.add_possible_cars_for_frame([((3,3),(3,3)),((3,3),(3,3)),((3,3),(3,3))])
-# print(ct.all_possible_cars, len(ct.all_possible_cars), len(ct.all_possible_car_boxes()))
