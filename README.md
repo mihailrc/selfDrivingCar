@@ -28,3 +28,10 @@ The goal of the project is to use Computer Vision techniques to identity lane li
 
   - [Solution](advancedLaneLines)
   - [Udacity review](advancedLaneLines/Udacity_Review.pdf)
+
+  ### Vehicle Detection
+
+   The goal of this project is to write a software pipeline to identify vehicles in a video. The solution uses Histogram of Oriented Gradients(HOG) and Color Histogram to extract features from images. The images are classified into cars and non cars using SVM. Sliding windows of different sizes are used to locate cars on the images, then a couple of thresholding techniques are used to reduce false positives.
+
+    - [Solution](vehicleDetection)
+    - [Udacity review](vehicleDetection/Udacity_Review.pdf)
