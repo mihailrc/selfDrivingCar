@@ -71,3 +71,7 @@ If using HOG there are several opportunities for improving performance.
 - use more sophisticated techniques to identify blobs in the heat much such as watershed
 
 Since the final results require so much parameter tuning I am not convinced that this is the most robust approach for vehicle identification. I believe using something like U-Net or YOLO can provide better results and this is what I intend to experiment with next.
+
+### Vehicle Detection video with DL
+
+[![Project video](https://img.youtube.com/vi/k-yMlIiFj80/0.jpg)](https://youtu.be/k-yMlIiFj80)
