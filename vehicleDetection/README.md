@@ -76,6 +76,3 @@ Since the final results require so much parameter tuning I am not convinced that
 
 [![Project video](https://img.youtube.com/vi/k-yMlIiFj80/0.jpg)](https://youtu.be/k-yMlIiFj80)
 
-Word2Vec
-[![Word2Vec](https://anvaka.github.io/pm/#/galaxy/word2vec-wiki?cx=-4651&cy=4492&cz=-1988&lx=-0.0915&ly=-0.9746&lz=-0.2030&lw=0.0237&ml=300&s=1.75&l=1&v=d50_clean_small)]
-(https://anvaka.github.io/pm/#/galaxy/word2vec-wiki?cx=-4651&cy=4492&cz=-1988&lx=-0.0915&ly=-0.9746&lz=-0.2030&lw=0.0237&ml=300&s=1.75&l=1&v=d50_clean_small)
