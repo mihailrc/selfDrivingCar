@@ -76,3 +76,7 @@ Since the final results require so much parameter tuning I am not convinced that
 
 [![Project video](https://img.youtube.com/vi/k-yMlIiFj80/0.jpg)](https://youtu.be/k-yMlIiFj80)
 
+### Vehicle Detection with OpenCV and Yolov3
+
+[![Project video](https://img.youtube.com/vi/-Zt1BQ9yv24/0.jpg)](https://youtu.be/-Zt1BQ9yv24)
+
